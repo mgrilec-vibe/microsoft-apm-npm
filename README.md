@@ -184,7 +184,7 @@ MICROSOFT_APM_VERSION=0.26.0   npm exec -- apm --version
 
 Both forms resolve to the same release. The launcher rejects anything that is not a clean semver (including npm-style version ranges like `^0.26.0` or floating tags like `latest`) so that the binary you run is the one you asked for.
 
-The default `0.26.0` is the only version whose expected archive SHA-256 is **embedded** in this package. For any other version the launcher verifies the archive against the upstream SHA-256 sidecar only; it is your responsibility to trust the upstream maintainer for non-default versions. See [§5.3 Release pin vs. embedded digest](#53-release-pin-vs-embedded-digest).
+The default release and supported historical release/platform combinations have expected archive SHA-256 values **embedded** in this package. Versions or platforms without an embedded digest still verify archive bytes against the upstream sidecar only; select them only when you explicitly trust that upstream release. See [§5.3 Release pin vs. embedded digest](#53-release-pin-vs-embedded-digest).
 
 ### 3.4 Download mirror
 
@@ -203,7 +203,7 @@ GET <base>/v<version>/<asset>            → archive bytes
 GET <base>/v<version>/<asset>.sha256     → SHA-256 sidecar text file
 ```
 
-For the default version, the launcher additionally requires that the upstream sidecar digest equal the digest embedded in this package. Other versions only need upstream-vs-archive equality.
+When the requested release and platform have an embedded digest, the launcher additionally requires the upstream sidecar to match it. Other releases only require upstream-vs-archive equality.
 
 ### 3.5 Timeouts and concurrency
 
