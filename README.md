@@ -6,7 +6,7 @@
 
 Install it once; on first use, it securely fetches the matching native APM release, verifies it, caches it, and runs it.
 
-[![CI](https://github.com/mgrilec-vibe/microsoft-apm-npm/actions/workflows/ci.yml/badge.svg)](https://github.com/mgrilec-vibe/microsoft-apm-npm/actions/workflows/ci.yml)
+[![CI](https://github.com/mgrilec/microsoft-apm-npm/actions/workflows/ci.yml/badge.svg)](https://github.com/mgrilec/microsoft-apm-npm/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/%40mgrilec%2Fapm?logo=npm&label=npm)](https://www.npmjs.com/package/@mgrilec/apm)
 [![Node.js 20+](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -174,7 +174,7 @@ The first release uses an npm automation token with publish access to the `@mgri
 
 ```sh
 npx --yes npm@^11.15.0 trust github @mgrilec/apm \
-  --repository mgrilec-vibe/microsoft-apm-npm \
+  --repository mgrilec/microsoft-apm-npm \
   --file publish.yml \
   --allow-publish
 ```
@@ -183,6 +183,6 @@ npx --yes npm@^11.15.0 trust github @mgrilec/apm \
 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request.
 - Review the [Code of Conduct](CODE_OF_CONDUCT.md) and [support boundaries](SUPPORT.md).
-- Report wrapper defects through the [bug-report form](https://github.com/mgrilec-vibe/microsoft-apm-npm/issues/new?template=bug.yml); use a blank issue for questions or proposals.
+- Report wrapper defects through the [bug-report form](https://github.com/mgrilec/microsoft-apm-npm/issues/new?template=bug.yml); use a blank issue for questions or proposals.
 - For Microsoft APM itself, see the [upstream repository](https://github.com/microsoft/apm).
 - Distributed under the [MIT License](LICENSE).

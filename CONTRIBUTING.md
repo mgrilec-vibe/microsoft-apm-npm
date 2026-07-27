@@ -16,7 +16,7 @@ A useful wrapper bug report includes the `@mgrilec/apm` version, Node.js version
 This project requires Node.js 20 or later.
 
 ```sh
-git clone https://github.com/mgrilec-vibe/microsoft-apm-npm.git
+git clone https://github.com/mgrilec/microsoft-apm-npm.git
 cd microsoft-apm-npm
 npm ci
 npm test
