@@ -35,26 +35,29 @@ function compareVersions(left, right) {
   return 0;
 }
 
-function selectLatestStableRelease(releases) {
+function stableReleases(releases) {
   if (!Array.isArray(releases)) {
     throw new Error('Microsoft APM Releases API returned an invalid response.');
   }
 
-  const stableReleases = releases
+  return releases
     .filter((release) => !release.draft && !release.prerelease)
     .map((release) => ({ ...release, parsedVersion: parseStableVersion(release.tag_name) }))
     .filter((release) => release.parsedVersion);
+}
 
-  if (stableReleases.length === 0) {
+function selectLatestStableRelease(releases) {
+  const stable = stableReleases(releases);
+  if (stable.length === 0) {
     throw new Error('Microsoft APM has no published stable semantic-version release.');
   }
 
-  return stableReleases.reduce((latest, release) => (
+  return stable.reduce((latest, release) => (
     compareVersions(release.parsedVersion, latest.parsedVersion) > 0 ? release : latest
   ));
 }
 
-function hashesFromRelease(release) {
+function availableHashesFromRelease(release) {
   const assets = new Map(release.assets.map((asset) => [asset.name, asset]));
   const hashes = {};
 
@@ -62,14 +65,21 @@ function hashesFromRelease(release) {
     const asset = assets.get(archive);
     const checksum = assets.get(`${archive}.sha256`);
     const digest = SHA256_DIGEST_PATTERN.exec(asset?.digest || '');
-
-    if (!asset || !checksum?.browser_download_url || !digest) {
-      throw new Error(
-        `Microsoft APM ${release.tag_name} is missing a SHA-256-digested ${archive} asset or its .sha256 sidecar.`,
-      );
+    if (asset && checksum?.browser_download_url && digest) {
+      hashes[archive] = digest[1].toLowerCase();
     }
+  }
 
-    hashes[archive] = digest[1].toLowerCase();
+  return hashes;
+}
+
+function hashesFromRelease(release) {
+  const hashes = availableHashesFromRelease(release);
+  if (Object.keys(hashes).length !== ARCHIVE_NAMES.length) {
+    const missing = ARCHIVE_NAMES.find((archive) => !hashes[archive]);
+    throw new Error(
+      `Microsoft APM ${release.tag_name} is missing a SHA-256-digested ${missing} asset or its .sha256 sidecar.`,
+    );
   }
 
   return hashes;
@@ -143,23 +153,51 @@ async function fetchReleases(fetchImpl = globalThis.fetch) {
   return releases;
 }
 
-async function updatePinnedRelease({ root = path.resolve(__dirname, '..'), fetchImpl } = {}) {
+function pinnedVersion(manifest) {
+  const version = parseStableVersion(`v${manifest.version}`);
+  if (!version) {
+    throw new Error(`Release manifest has an invalid pinned version: ${JSON.stringify(manifest.version)}.`);
+  }
+  return version;
+}
+
+function serializeManifest(manifest, version, hashes) {
+  return `${JSON.stringify({
+    ...manifest,
+    version,
+    hashes,
+  }, null, 2)}\n`;
+}
+
+async function readUpdateInputs(root, fetchImpl) {
   const manifestPath = path.join(root, 'lib', 'release-manifest.json');
-  const readmePath = path.join(root, 'README.md');
-  const [manifestContents, readme, releases] = await Promise.all([
+  const [manifestContents, releases] = await Promise.all([
     fs.readFile(manifestPath, 'utf8'),
-    fs.readFile(readmePath, 'utf8'),
     fetchReleases(fetchImpl),
   ]);
-  const manifest = JSON.parse(manifestContents);
-  const release = selectLatestStableRelease(releases);
-  const hashes = hashesFromRelease(release);
-  await verifyChecksumSidecars(release, hashes, fetchImpl);
 
-  if (manifest.version === release.parsedVersion.version) {
+  return {
+    manifestPath,
+    manifest: JSON.parse(manifestContents),
+    releases,
+  };
+}
+
+async function updatePinnedRelease({ root = path.resolve(__dirname, '..'), fetchImpl } = {}) {
+  const readmePath = path.join(root, 'README.md');
+  const [{ manifestPath, manifest, releases }, readme] = await Promise.all([
+    readUpdateInputs(root, fetchImpl),
+    fs.readFile(readmePath, 'utf8'),
+  ]);
+  const currentVersion = pinnedVersion(manifest);
+  const release = selectLatestStableRelease(releases);
+
+  if (compareVersions(release.parsedVersion, currentVersion) <= 0) {
     return { updated: false, version: manifest.version };
   }
 
+  const hashes = hashesFromRelease(release);
+  await verifyChecksumSidecars(release, hashes, fetchImpl);
   const nextReadme = readme.replaceAll(manifest.version, release.parsedVersion.version);
   if (nextReadme === readme) {
     throw new Error(`README.md does not document the current Microsoft APM version ${manifest.version}.`);
@@ -168,10 +206,10 @@ async function updatePinnedRelease({ root = path.resolve(__dirname, '..'), fetch
   await Promise.all([
     fs.writeFile(
       manifestPath,
-      `${JSON.stringify({
-        version: release.parsedVersion.version,
-        hashes: { [release.parsedVersion.version]: hashes },
-      }, null, 2)}\n`,
+      serializeManifest(manifest, release.parsedVersion.version, {
+        ...manifest.hashes,
+        [release.parsedVersion.version]: hashes,
+      }),
     ),
     fs.writeFile(readmePath, nextReadme),
   ]);
@@ -179,11 +217,30 @@ async function updatePinnedRelease({ root = path.resolve(__dirname, '..'), fetch
   return { updated: true, version: release.parsedVersion.version };
 }
 
+async function backfillReleaseHashes({ root = path.resolve(__dirname, '..'), fetchImpl } = {}) {
+  const { manifestPath, manifest, releases } = await readUpdateInputs(root, fetchImpl);
+  const hashes = Object.fromEntries(stableReleases(releases).map((release) => [
+    release.parsedVersion.version,
+    availableHashesFromRelease(release),
+  ]).filter(([, releaseHashes]) => Object.keys(releaseHashes).length > 0));
+  const nextManifest = serializeManifest(manifest, manifest.version, hashes);
+  const currentManifest = await fs.readFile(manifestPath, 'utf8');
+
+  if (nextManifest === currentManifest) {
+    return { updated: false, version: manifest.version, versions: Object.keys(hashes).length };
+  }
+
+  await fs.writeFile(manifestPath, nextManifest);
+  return { updated: true, version: manifest.version, versions: Object.keys(hashes).length };
+}
+
 async function main() {
-  const result = await updatePinnedRelease();
+  const result = process.argv.includes('--backfill-hashes')
+    ? await backfillReleaseHashes()
+    : await updatePinnedRelease();
   console.log(result.updated
-    ? `Updated Microsoft APM pin to ${result.version}.`
-    : `Microsoft APM is already pinned to ${result.version}.`);
+    ? `Updated Microsoft APM release data for ${result.version}.`
+    : `Microsoft APM release data is already current for ${result.version}.`);
 
   if (process.env.GITHUB_OUTPUT) {
     await fs.appendFile(process.env.GITHUB_OUTPUT, `updated=${result.updated}\nversion=${result.version}\n`);
@@ -199,11 +256,13 @@ if (require.main === module) {
 
 module.exports = {
   ARCHIVE_NAMES,
+  backfillReleaseHashes,
+  checksumFromSidecar,
   compareVersions,
   hashesFromRelease,
-  checksumFromSidecar,
   parseStableVersion,
   selectLatestStableRelease,
+  stableReleases,
   updatePinnedRelease,
   verifyChecksumSidecars,
 };

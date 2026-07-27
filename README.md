@@ -34,7 +34,7 @@ The launcher is published as a CommonJS package with no native binding; nothing 
 Microsoft APM ships native binaries. This package makes the CLI available through the normal npm workflow without hiding the provenance of the binary that actually runs.
 
 - **Pinned by default** — installs Microsoft APM **0.26.0**, so an upstream release cannot silently change an existing npm installation.
-- **Verified before execution** — downloads the archive and its upstream SHA-256 sidecar over HTTPS; the default release is additionally checked against a digest embedded in this package.
+- **Verified before execution** — downloads the archive and its upstream SHA-256 sidecar over HTTPS; supported releases are additionally checked against digests embedded in this package.
 - **Cached per platform and version** — only the first run for a given target needs a download.
 - **Transparent at the command line** — APM arguments, output, exit code, and signals pass through unchanged.
 - **Safe for concurrent first runs** — a bounded cache lock ensures one installation wins cleanly.
