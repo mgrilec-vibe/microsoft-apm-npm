@@ -34,7 +34,7 @@ The launcher is published as a CommonJS package with no native binding; nothing 
 Microsoft APM ships native binaries. This package makes the CLI available through the normal npm workflow without hiding the provenance of the binary that actually runs.
 
 - **Pinned by default** — installs Microsoft APM **0.26.0**, so an upstream release cannot silently change an existing npm installation.
-- **Verified before execution** — downloads the archive and its upstream SHA-256 sidecar over HTTPS; the default release is additionally checked against a digest embedded in this package.
+- **Verified before execution** — downloads the archive and its upstream SHA-256 sidecar over HTTPS; supported releases are additionally checked against digests embedded in this package.
 - **Cached per platform and version** — only the first run for a given target needs a download.
 - **Transparent at the command line** — APM arguments, output, exit code, and signals pass through unchanged.
 - **Safe for concurrent first runs** — a bounded cache lock ensures one installation wins cleanly.
@@ -184,7 +184,7 @@ MICROSOFT_APM_VERSION=0.26.0   npm exec -- apm --version
 
 Both forms resolve to the same release. The launcher rejects anything that is not a clean semver (including npm-style version ranges like `^0.26.0` or floating tags like `latest`) so that the binary you run is the one you asked for.
 
-The default `0.26.0` is the only version whose expected archive SHA-256 is **embedded** in this package. For any other version the launcher verifies the archive against the upstream SHA-256 sidecar only; it is your responsibility to trust the upstream maintainer for non-default versions. See [§5.3 Release pin vs. embedded digest](#53-release-pin-vs-embedded-digest).
+The default release and supported historical release/platform combinations have expected archive SHA-256 values **embedded** in this package. Versions or platforms without an embedded digest still verify archive bytes against the upstream sidecar only; select them only when you explicitly trust that upstream release. See [§5.3 Release pin vs. embedded digest](#53-release-pin-vs-embedded-digest).
 
 ### 3.4 Download mirror
 
@@ -203,7 +203,7 @@ GET <base>/v<version>/<asset>            → archive bytes
 GET <base>/v<version>/<asset>.sha256     → SHA-256 sidecar text file
 ```
 
-For the default version, the launcher additionally requires that the upstream sidecar digest equal the digest embedded in this package. Other versions only need upstream-vs-archive equality.
+When the requested release and platform have an embedded digest, the launcher additionally requires the upstream sidecar to match it. Other releases only require upstream-vs-archive equality.
 
 ### 3.5 Timeouts and concurrency
 
@@ -491,6 +491,8 @@ For the long-form source-level walk-through (sequence diagrams, lock semantics, 
 ### 9.1 What gets published
 
 The published tarball contains only the launcher source, this README, and the MIT license. Releases are published by [the release workflow](.github/workflows/publish.yml) when a GitHub release tag matches `package.json`.
+The [upstream release workflow](.github/workflows/update-apm-release.yml) polls Microsoft APM daily and can also run manually. It opens or updates one pull request only after a newer published stable semantic-version release has all supported archives, checksum sidecars, and GitHub API SHA-256 digests. That pull request updates the pinned release, its embedded digests, the documented default, and the wrapper patch version; review and merge it before creating the npm release.
+
 
 ### 9.2 Trusted publishing
 

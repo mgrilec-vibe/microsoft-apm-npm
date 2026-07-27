@@ -1,0 +1,479 @@
+{
+  "version": "0.26.0",
+  "hashes": {
+    "0.26.0": {
+      "apm-darwin-arm64.tar.gz": "febddd0a8beb4be7b411e708ed746937a14482d5e0935eb776b7f35e320654df",
+      "apm-darwin-x86_64.tar.gz": "6cc47251bbefabe36224bcc5370c1ef08405d4fd15900b42e11ba672ae29483f",
+      "apm-linux-arm64.tar.gz": "c4d6b5ab6d9bdca3c3c324db7ce8d1c4faf7b317f45a55a50ae2571eaa506d25",
+      "apm-linux-x86_64.tar.gz": "3afba455c5283852ba4c392f668be7c27b65bc4a0fa60a8b53a4626c52628431",
+      "apm-windows-x86_64.zip": "1b74a90c7ee6373ab2926addd110c1dbc5934a9675e5f436cac4d04f46cce2f5"
+    },
+    "0.25.0": {
+      "apm-darwin-arm64.tar.gz": "8b46963bf881d1369c1ee30f6099fba54d13379a8860ec190cdcaf50cf4586a9",
+      "apm-darwin-x86_64.tar.gz": "8b1c43543113550e49939c7970429e19881d6347c90c44185eb55ea73d0eca73",
+      "apm-linux-arm64.tar.gz": "962d0d463544bdba42f2c99e8daa12eef2abd15d52e18bfbbad07fb13e573305",
+      "apm-linux-x86_64.tar.gz": "7a4281ef915e9609f8841eced19285bf2dcf702862302171f7e893c30e1b3244",
+      "apm-windows-x86_64.zip": "1d9b3b44ffe031c331f4dfe33694bbb80d10d16165ca053110b96dbeb7365943"
+    },
+    "0.24.1": {
+      "apm-darwin-arm64.tar.gz": "737264f82d8939c6b898c2a6a5126d881a8dcae6eadf5fc3fa48ab5a8acda317",
+      "apm-darwin-x86_64.tar.gz": "f356c213dcf7aea561a233827c3572ba6b3da517ef5f83f418f0627b179a348a",
+      "apm-linux-arm64.tar.gz": "7984a87ef89ade6c48f4bfc0699ee82efc6c83d0c03610feed7fda9d5a4bf2e1",
+      "apm-linux-x86_64.tar.gz": "4c49f4c6dfab0a8dda49ebd140a60cd6038a3fe41a1fb465c8e567c195a8783f",
+      "apm-windows-x86_64.zip": "1fd8b2595c754de39a3a71e6e4b4e3802f1832d6cfd71a144ed8cd05ad99e5a2"
+    },
+    "0.24.0": {
+      "apm-darwin-arm64.tar.gz": "09a87baa5a527ea14064962bd549e8e6baf4e527bd259b54ce0d25f7757e5baf",
+      "apm-darwin-x86_64.tar.gz": "feee0ca5c1f7b25ef7320f1d7ea384bc29771ce21e0ef0d28aa6b5d11cee9c06",
+      "apm-linux-arm64.tar.gz": "4314cadabf78a3776a3b22d276c01c45e1db644498e05d8ea5437015521d6c0b",
+      "apm-linux-x86_64.tar.gz": "54b58a212d66e0de0b71068e7b3b23169af872183de10bc0fc29e006354d63eb",
+      "apm-windows-x86_64.zip": "68d690b7b582d1f017ba39b295956e60b6e5e06e2ef0f6778392bb4be48a718d"
+    },
+    "0.23.1": {
+      "apm-darwin-arm64.tar.gz": "87e8feb2135cbfb8c537ad01d67f2306f048041ba648b5680f2988744af9b69f",
+      "apm-darwin-x86_64.tar.gz": "90f5f1f987f117e9d020f5682f852f4bf759fe1a31f0313522d52d01fec8bf08",
+      "apm-linux-arm64.tar.gz": "6b8805bb29ab75ede1ac5f4c395d71998161bfc52c884c4395c2c71e3c625631",
+      "apm-linux-x86_64.tar.gz": "d37330e1d662a46fe5c510350731da9f5716626b7ebf2eab7b7368148e15f17e",
+      "apm-windows-x86_64.zip": "18fd8c67ba762318fa7699bda3505e07960284626d2670202b801133c20d2cbc"
+    },
+    "0.23.0": {
+      "apm-darwin-arm64.tar.gz": "34ac77a0972583c34bfff62392fa8b25e1980b830e5ed1695676962890ba8460",
+      "apm-darwin-x86_64.tar.gz": "a1e20477569efa34cc1d90ce739bff9189a32c2c957e9006532ab7672327f6fc",
+      "apm-linux-arm64.tar.gz": "4b477468e2ec02996370bcd52d2fba44fe1b8aad9944d10713208d4f5e04186a",
+      "apm-linux-x86_64.tar.gz": "92e8b4fc43e4abcd73648067913e94f5984840e31dddbe19af09979326116fc9",
+      "apm-windows-x86_64.zip": "ea38a47a91da640b871774c2463b6ec25eb7726278ef6cb105f23dac22cb48f5"
+    },
+    "0.22.0": {
+      "apm-darwin-arm64.tar.gz": "d1417e7d0d3fc4746392403670a55847364aa7db918f6c374bff6cce95759665",
+      "apm-darwin-x86_64.tar.gz": "87f1e8f870bc6bf1d77a755d315e238975c7815b6ff96070c148fb96ad2c547d",
+      "apm-linux-arm64.tar.gz": "557feb48401d5e6cd7f6bdba4b6c975a234f444bc511188725d01b04d3e1a2d8",
+      "apm-linux-x86_64.tar.gz": "1e52967b78f7dbc980f75dbd5dcf69ee21b6f1a8da6832a323719f7fd5996f49",
+      "apm-windows-x86_64.zip": "ab6327d9035324fe726677a258dceb25041d333854e436aec7c88e4c3cc62824"
+    },
+    "0.21.0": {
+      "apm-darwin-arm64.tar.gz": "0191ec12006e27fc8ce8bfac85e07ec17111cc9394455cd1c158a7b459cd6caf",
+      "apm-darwin-x86_64.tar.gz": "1ee56574a53b43a2e379ff26982749a60f5b3376146fe778fc5a153137feab7d",
+      "apm-linux-arm64.tar.gz": "27f75bef3f2106d05d42ddced095b7788fc4608e6f2e948b85573dc884f7eb79",
+      "apm-linux-x86_64.tar.gz": "65c976117740335452c33f131aa6b2306cbaa4865d2d2efe949ff8be9db1d805",
+      "apm-windows-x86_64.zip": "ba7b4adfb13652ba09aca22cdba3aa5efc4bd4420be58a0da815d1877ad95277"
+    },
+    "0.20.0": {
+      "apm-darwin-arm64.tar.gz": "99dd9ff3d7f32541ee7cd3d80016549ca26cfe198e34911b2c292728b211befd",
+      "apm-darwin-x86_64.tar.gz": "116f4cdc32a647c934edd1539a5a17545a13dba91fb8316327c379883d0d5e08",
+      "apm-linux-arm64.tar.gz": "5cb6762ed291499920cea393e565b22e834c6b0218cc839f593937f2fc3a5509",
+      "apm-linux-x86_64.tar.gz": "b993e3297b25034ebc30e41626d4ab1a91dbedf424f4d24a2e55824aa2cd9688",
+      "apm-windows-x86_64.zip": "9c3ffc524c34a63980e893a1226adfbe6464dd8f68559cee802f7367821462dc"
+    },
+    "0.19.0": {
+      "apm-darwin-arm64.tar.gz": "06bfcec4be3aff7d656e901a237e65cb835f244cbc0e02e02c780e72fb6cf294",
+      "apm-darwin-x86_64.tar.gz": "485847073e208cd262159ca4e934e39c85b54d02b27c34eda36a6afc801b20b3",
+      "apm-linux-arm64.tar.gz": "1a381f030a475f806c38d51a33b9af5f6e2eaf51cf20fd629f7322da0ca3dd78",
+      "apm-linux-x86_64.tar.gz": "93c447da0857da55ff12e7071a5af974c0f85de9717155e7dc06682bc1afe362",
+      "apm-windows-x86_64.zip": "e1a42126b891f24cdc32916d60806cd5a86b20f367e16598a5e12fcb3b579406"
+    },
+    "0.18.0": {
+      "apm-darwin-arm64.tar.gz": "6a22511e16559e54d96fcc11fb8599dc5c2ffb79cff136560a4d46d45b4cd099",
+      "apm-darwin-x86_64.tar.gz": "e2702a163182f771d81927371f5978bfe3ca051a8d7509db35c0814513636b58",
+      "apm-linux-arm64.tar.gz": "dee91b530ec2a28832cd52dda3c303ba3647c726b2caf90f2f53118c4a79e993",
+      "apm-linux-x86_64.tar.gz": "9724f09627243bd5a1aeb7cb07616469718e36d20dd4430d0e6ee5a3046ab09a",
+      "apm-windows-x86_64.zip": "713fcf1613fc190a01485ddbc5cd07aee8cfd942e87e04489e989ee0a4691e5e"
+    },
+    "0.17.0": {
+      "apm-darwin-arm64.tar.gz": "3d16745671911989582a6a1c9ed7c08cbfcccb74de8af5857339c438a0b5a5f5",
+      "apm-darwin-x86_64.tar.gz": "fcd58bfa7b2ba2617d23c87089f6c68a1afd33d6a8612ee3b07ebf0eb6a8e15b",
+      "apm-linux-arm64.tar.gz": "3638523b54d504bcf6b3996e3b3c4b57a5aba5e6eed4d875dccdcb187dba0f01",
+      "apm-linux-x86_64.tar.gz": "490d46a8afb9f85300487de8b4925defb96d7624c28d97ad2e03421875b9c36b",
+      "apm-windows-x86_64.zip": "50e68cf1233944bc59438815e059c36e2d613a996da2f1d32b4f901d9f8c774c"
+    },
+    "0.16.1": {
+      "apm-darwin-arm64.tar.gz": "57771452f017aba208351ab1d0b384273c463faf2bb4516c94eba422a4fe028d",
+      "apm-darwin-x86_64.tar.gz": "96f04ea961ea0bf3885906fb6475695347a6de5d6ff2c46d3e641453e7c68ae9",
+      "apm-linux-arm64.tar.gz": "c41bad9fcc55180295fd7efc54a088543ee9498cb8934344916fc9bd3609d797",
+      "apm-linux-x86_64.tar.gz": "7e3c7aae3972398885d85edfaeb4134ff06d79c9ff63d161873e3407e8a7729c",
+      "apm-windows-x86_64.zip": "35ca70b778a5f2d1201f5dc034b183dc46b281e454ccb027cbbe18d1f156fe08"
+    },
+    "0.16.0": {
+      "apm-darwin-arm64.tar.gz": "f990cca0396658807622e03f23c4e801b1f9dfbf9c06503e0ae77516c514c701",
+      "apm-darwin-x86_64.tar.gz": "4abb16fe99bc6954ae64305f2da7ff2e984ba39b50e643ddd324e4aa23dc6797",
+      "apm-linux-arm64.tar.gz": "b30c8a48a47bab0416df47f3e017075fbb44999721e2a76d4ada20e99db49999",
+      "apm-linux-x86_64.tar.gz": "2b6ace79257328a9599b2569f4751e5e372e21aeada9e90b423d51df95f24f4d",
+      "apm-windows-x86_64.zip": "74dbd4b0cca1c3d2d9e5d4ba3b02c6ce30046a7dd2b97a9cc951e7afe78d661d"
+    },
+    "0.15.0": {
+      "apm-darwin-arm64.tar.gz": "e73dceaddeb1b5b74ea5c97c47f9c68db39568f40142aae102131bbbddb220d5",
+      "apm-darwin-x86_64.tar.gz": "a3806e271d90ebbcafd6a1751436c5995e1770f63ecc281b78ca2b4788d5fac2",
+      "apm-linux-arm64.tar.gz": "9d0f255683103dd3066dbba6821f7f01abd9db32ee1642a697648ee4742b3e78",
+      "apm-linux-x86_64.tar.gz": "f045d35f5b59656e85e04d315f85cb36634d5f767c95c7cab88f11fb7772f1aa",
+      "apm-windows-x86_64.zip": "1d0cc2ad4920a84e4e23e527b5d01202994e1bbd0ae10a441ddd0a7d367b0a3c"
+    },
+    "0.14.2": {
+      "apm-darwin-arm64.tar.gz": "0c5346f71a78bac599d6dbe65a3b36939135359e8533539c8fe7d330e463cff5",
+      "apm-darwin-x86_64.tar.gz": "187cb0141577b69d27e07688d826b6c82cb311a0dd1a1197183c09c558d09e9c",
+      "apm-linux-arm64.tar.gz": "f8672c634cce0d257ba3e94c80bb9f4290bf3a67c6ed26cb3f4ed9da7b1b7ac7",
+      "apm-linux-x86_64.tar.gz": "980b7b01e43bc69bbe349b3e01b75d4837412b027bfd118ae6e6ca467b801288",
+      "apm-windows-x86_64.zip": "0e7a18a16ee0c5d34abb69e41cba66ec7b7df1a9515ce8746702965654bda182"
+    },
+    "0.14.1": {
+      "apm-darwin-arm64.tar.gz": "a2eb2b9af922973ae3a8e467da8cf2d07a1211720d4ddc4d217570f1b6585351",
+      "apm-darwin-x86_64.tar.gz": "3f036ed4619e2ec8845884db5a9a40c8ac8f3bf77fc02a71b8021c84bb4ba206",
+      "apm-linux-arm64.tar.gz": "2ba228a75354277a7b7a1e6a966f1ae8a985714c8dc163811702985260dae1f1",
+      "apm-linux-x86_64.tar.gz": "a3b799c946179364fed94ed65169959506d4b8e059f841c0d3d9b67716a1d926",
+      "apm-windows-x86_64.zip": "c8c28fda02bd2c1136f00bb34dacaaac55037d42e2e07d21142975f4e91d0918"
+    },
+    "0.14.0": {
+      "apm-darwin-arm64.tar.gz": "3bb8b7ce7d4fc68646bfbe96c188e3c0cc278bfe066f68fb52e8929fd0da3938",
+      "apm-darwin-x86_64.tar.gz": "3f70f6c0985b344973f5ba6004f0bfc02212e547b95fdce04deb6d8a3ef7ae6d",
+      "apm-linux-arm64.tar.gz": "3a8340b02851a94760a449d732e5f417b2ba4409689471302af9c5801851ad72",
+      "apm-linux-x86_64.tar.gz": "5ca7853e4b8858272da721e1d68548a6c078f7920487298bef901bd6e709a7d1",
+      "apm-windows-x86_64.zip": "51e3d439863620ea51e00bab09dcf22ceb2f8e83a1e70cb0eb50e5a02578f728"
+    },
+    "0.13.0": {
+      "apm-darwin-arm64.tar.gz": "73ee687128ca995bf50c698c0035e73c099e32bdc3d23980580fc62635d1f122",
+      "apm-darwin-x86_64.tar.gz": "df55f578a485cfd2d96a56ab6519ecea59ba072879417edda543bfd7c9bf6088",
+      "apm-linux-arm64.tar.gz": "5356627b372ab5cc6df9bb12022beadac638e1f809ab1c7781d864d7058674eb",
+      "apm-linux-x86_64.tar.gz": "ed02b1103ef4bc49559a81f7e109b424a49d95cf978515ad224e5eeb701b1f8a",
+      "apm-windows-x86_64.zip": "34d5bbad9aae454fdadf5de6c458ebb44cc0ed8b3e1cc13c8f5c7bc2bdea96c8"
+    },
+    "0.12.4": {
+      "apm-darwin-arm64.tar.gz": "1354eb636a2b84f03938a3bd8890175298f57650e6d8507f2d084d3c66c10fd0",
+      "apm-darwin-x86_64.tar.gz": "c76ef17fa3250f87131ee09d1c8e166fce535dc2d7cea6e44fc1c5d0e3df0bac",
+      "apm-linux-arm64.tar.gz": "4b64ff40b2b70ae3c97eb64a608cadcb06c4713cd878708c9685a12394278ca0",
+      "apm-linux-x86_64.tar.gz": "a9be6afb9f33f63598d11a7de1029722fd2601aa2ecaebfe82f4903e12a23a52",
+      "apm-windows-x86_64.zip": "761937a844d9794dd7bab4cc54f049c952f7ad9006520140618f47ac7dd07aa0"
+    },
+    "0.12.3": {
+      "apm-darwin-arm64.tar.gz": "0afc962e79b13f9de8e38f3e7ff963ba7f6c95e376effe26623fff4d391a8375",
+      "apm-darwin-x86_64.tar.gz": "c9e0ed987fea7be5462031787fee437d2c227bebe1ddc8779345db79712a5caa",
+      "apm-linux-arm64.tar.gz": "e4893d027b283632328e6eb552bb419796b809f74d6a6a70eb0fd43add838b33",
+      "apm-linux-x86_64.tar.gz": "6f21346b3f168f27b64c7f67d8dd23975852a60a157c69ab1ce50fbfa22710ba",
+      "apm-windows-x86_64.zip": "25fea5bf7a0c7fb4d39176a0d9c4503a921999b28d355c8128acc74985494561"
+    },
+    "0.12.2": {
+      "apm-darwin-arm64.tar.gz": "6da17d4203c23bc840640f3ef104772d3e6dcdfaf64fe8d3d3efeb5d961ac63e",
+      "apm-darwin-x86_64.tar.gz": "f2692e1126a2b9a1efa77313f25f86e4c87294844c8c15544972260e0e726510",
+      "apm-linux-arm64.tar.gz": "724f691f39ad96d7fe041b0ee192f2710c1e38a33df64b888659bb28a4eb3c3d",
+      "apm-linux-x86_64.tar.gz": "8b392e99451489fad761bbc230f0b2b8fabeb0bf454fae071eb787c5d9917980",
+      "apm-windows-x86_64.zip": "adc39a7e5a965130e97b4f40cc40c84ef201c55aff3611e8a794b214fa2c1103"
+    },
+    "0.12.1": {
+      "apm-darwin-arm64.tar.gz": "b575dac3832f5b21cf34a370e795644cdc2c625520a0909808d927fb4700de4d",
+      "apm-darwin-x86_64.tar.gz": "bce72fd7d769fdd7f6117421f4bf6bc47711922a8fb69fbab228e034e3e69de0",
+      "apm-linux-arm64.tar.gz": "364a651b8e383331cf0ae996d3d57b7f164b38de345634ae08fe7114c4f9e3a7",
+      "apm-linux-x86_64.tar.gz": "a0b896e8cbdd10441125e989aa19d180c62052eda7c8aa850feb367805d1256f",
+      "apm-windows-x86_64.zip": "89177dbdfd8e6a62d39b29e7c8afa7c9e5e5dd4718268f018917a9474b986435"
+    },
+    "0.12.0": {
+      "apm-darwin-arm64.tar.gz": "b5fb0971329dbe087cc717a3296192aa6340adc8087237f1af97a3a787f0eb37",
+      "apm-darwin-x86_64.tar.gz": "53b6f66811a36fb8a4ae30606eb41a250cc3b66ac6dd55242327c3350ac651c2",
+      "apm-linux-arm64.tar.gz": "9db6ddd61b5321df033abffe60394543e17ce8ce9126d1d8ee42c82fd0df4fcd",
+      "apm-linux-x86_64.tar.gz": "d524019037baa35dc107be08287269b07ef4dd9182d76b86b37b535e337c1fe3",
+      "apm-windows-x86_64.zip": "e42d98b526d8e14df315953c92c2b12b8456ae0f8e06a0f22d8e79f3d0262b69"
+    },
+    "0.11.0": {
+      "apm-darwin-arm64.tar.gz": "c4bd64590cd3c3ad612b7c1bafd83183fd7de6ad68efc0a92a9254a838cfdf42",
+      "apm-darwin-x86_64.tar.gz": "aabd3d9c1502ee6925cc628586b0e8d3ae3b7713ed497022b785aa899b67b5f2",
+      "apm-linux-arm64.tar.gz": "7efd0a880b8a524437c23c26ac9ad9f2e53ca10e4e0cfe04a554b9b2d32721f1",
+      "apm-linux-x86_64.tar.gz": "170f0ad7ab9c08ae158802dcb39556a4b6c86fcb8b2c1e7a25c90bc077a8a6e0",
+      "apm-windows-x86_64.zip": "92728b137d92dba5d8f359682f8de9397c35c1197629cf67eddef6e3ab4cfa94"
+    },
+    "0.10.0": {
+      "apm-darwin-arm64.tar.gz": "55f9a30491fe2e5501302a218510700a935dd643e59e319ea5bc168142e056b7",
+      "apm-darwin-x86_64.tar.gz": "7ea75a7110e0295b0ef3f942106c8cae314c7e5c93f7e2cf2a07f29b05f66864",
+      "apm-linux-arm64.tar.gz": "dc80d356776aef7d158c352ed5f577950250b2c861e3806c44e9b4c4b9c6bb73",
+      "apm-linux-x86_64.tar.gz": "26fe68ccfac0c8896eb048a8ab3575de64d8d8b9b61293ae6b72e012ed280e93",
+      "apm-windows-x86_64.zip": "04a08f46f82d20163e7fd013fa5ea8128133239918a0fb2531d1b040d1e09526"
+    },
+    "0.9.4": {
+      "apm-darwin-arm64.tar.gz": "4ff046bfc4b4887097cc804878b205535eed85b45d5ec0c6adfc0738701e28a2",
+      "apm-darwin-x86_64.tar.gz": "40ba6d3a52ed54a0d320415a27c7d5778b32f6feb87cf84fef7a342f0888ca60",
+      "apm-linux-arm64.tar.gz": "a9121e83466183e5a6a48c82ebb031c2e1e7aeaa63c580cc66cb79f61b19281e",
+      "apm-linux-x86_64.tar.gz": "daee4c628e89ed6b7c1d0b3de03e6e809d051214543516973025997bf87c76bd",
+      "apm-windows-x86_64.zip": "11bae39bb8f40c75b9d4bcbf0742749d5e0f492e73f568b0f570e4a49258d9c1"
+    },
+    "0.9.3": {
+      "apm-darwin-arm64.tar.gz": "31f51f6df2c7118c0027b7bece8827438f31b568a1ed0d71a6e8009b0eaa4841",
+      "apm-darwin-x86_64.tar.gz": "646aef8b9de98f202c63cb6a03c32acee5610bdf0bb445fcc2f877644111a914",
+      "apm-linux-arm64.tar.gz": "bc3129821708de3d1002858182f0388fcb340e1400175df88a03b0480af1e171",
+      "apm-linux-x86_64.tar.gz": "d8e95c7cbc5d1e74f1320904a1e705f38f5d1f95e0f491d6f509d99c3554f86f",
+      "apm-windows-x86_64.zip": "3c0cd77c53b12e149a362d60c51019b328353d5ba4ab483e993af9a94161ae4f"
+    },
+    "0.9.2": {
+      "apm-darwin-arm64.tar.gz": "546ab17fc87d3aab569abd02f57dad616ced20fe92b241d1036cddafb70ce619",
+      "apm-darwin-x86_64.tar.gz": "800abf343ee4d79bb7287a081bc9055b1073b1c1f16effd0128b839597082082",
+      "apm-linux-arm64.tar.gz": "7c88caa0a80cf45d884679c7e750d01fd4421a46e44d89e65274ce45e0c44ec9",
+      "apm-linux-x86_64.tar.gz": "2fe4cc44ee8d42d757a27a742b8371cbb16887a47047eb3db1dca6dfb5b27767",
+      "apm-windows-x86_64.zip": "e8de9c31e242f7988fe615424912fe6f6efc514557105958c0acb4c7ecb9d366"
+    },
+    "0.9.1": {
+      "apm-darwin-arm64.tar.gz": "54f335a46f52b76f36b6a43c8a41d3f3e2c1dc78d1f43f479edc828426ee7033",
+      "apm-darwin-x86_64.tar.gz": "ca584af724126bdbc53801555b86f06e45e59f8da6cc07d5939ed65c1c80b110",
+      "apm-linux-arm64.tar.gz": "86514b9a8eb1f4e8d9db36234cee5d22a1f2cb59f61b8a1ba98f6f06516dd008",
+      "apm-linux-x86_64.tar.gz": "33bce1ca71c51163ebe2fb111b63a576845b67a2029ee2d9b544a35446bc2610",
+      "apm-windows-x86_64.zip": "412ec4e1d22108d84b50d2f49c0995a72f38b2c9dacbe4fab6572dbc52501c80"
+    },
+    "0.9.0": {
+      "apm-darwin-arm64.tar.gz": "5d7dbbe4332dc2a6640539bab96245a4491e700cd76d3399d0211e58c587251e",
+      "apm-darwin-x86_64.tar.gz": "db2135e0a337f9ea4b3f6b7bc424d63f64fad826006b7269daca1f7e0e8b9309",
+      "apm-linux-arm64.tar.gz": "99d9a623f29489906dbdbde825cf9dad2c6eb454a1fabab48c6af1c82125043e",
+      "apm-linux-x86_64.tar.gz": "aea832f4303a85723433e0c041c8b777d22f0024d86420efef3c83a067cd32b4",
+      "apm-windows-x86_64.zip": "ad192269bbf64a350d75fe1a1c079c1035cb40ba8561e8deef80e920e7734e5b"
+    },
+    "0.8.12": {
+      "apm-darwin-arm64.tar.gz": "efa8770106dae871e2af72e3c033aabf7a84d15c6377e2d5a95b924fc6c78bdf",
+      "apm-darwin-x86_64.tar.gz": "f67cbf435bd06413917fe69d67fb3361e5c6694a74fcbde8c9708295c09b1d7d",
+      "apm-linux-arm64.tar.gz": "6bea008c2bfc43666f300755f681d9988676c815e4a02d33df25fe8108499b28",
+      "apm-linux-x86_64.tar.gz": "58c88bc051d0f09ada9d88751b873c826d56b762ac2fbf8abd4032dce38e6b39",
+      "apm-windows-x86_64.zip": "a82dde85ff41d2dc69b63da2bf6e9bd55f783e31b6b2d2d17e1dd88f3af4b06d"
+    },
+    "0.8.11": {
+      "apm-darwin-arm64.tar.gz": "d4d78cfa110d369601d53b1238e0b17a2772ae1ef0281e67eb4917f3525bc6b4",
+      "apm-darwin-x86_64.tar.gz": "1c48afad648781d02dbea5050b78a037a4f243b711b92d08d3f05257edb0aec9",
+      "apm-linux-arm64.tar.gz": "c49c5b3cdbbf7abe2a4ac630c2cd5706cd45e1576065449d847e4129efaa17c0",
+      "apm-linux-x86_64.tar.gz": "b3f4ee5a933c89b97ce30fb7318d227e2c92060b64abd699a35a7e9c1998fe45",
+      "apm-windows-x86_64.zip": "29816fef6516bca6404c7f18f52a9af6b594f97be073a670f2c7b4349e157ce8"
+    },
+    "0.8.10": {
+      "apm-darwin-arm64.tar.gz": "fc8896101256805e0bbc5f2d382a3479e560caad6fe0f6882c4a3ece07c46f57",
+      "apm-darwin-x86_64.tar.gz": "342005345e40cebeb0607c7c069214991055c493153442ea967c14dd04f9d3a5",
+      "apm-linux-arm64.tar.gz": "01fa71e1e7a2596cac40088adc02c852b8a862c311419d908ce0f9c69ac0e81e",
+      "apm-linux-x86_64.tar.gz": "7f3b889595ef3fead06637787cf105d582abf6e72b12b2a2b78738562ab4e333",
+      "apm-windows-x86_64.zip": "12d2c0c7bf8c3babaa3fc45e44229b204fc4bba617f5c785f18124151869abc3"
+    },
+    "0.8.9": {
+      "apm-darwin-arm64.tar.gz": "ec0a46ac828f139806f40af20deaf92e83febde0c136ec2801b9de33b9303ba7",
+      "apm-darwin-x86_64.tar.gz": "d4ef0ad41d75cd63c7a83b6b155e1e1e75fa18bb14e23eb44f8afecfa31fc072",
+      "apm-linux-arm64.tar.gz": "23f0659f40c5557686545e16d3a6117dbdb67cbb19a60e0d364e8c97e9953830",
+      "apm-linux-x86_64.tar.gz": "46edf22c792d3a81480f96edd2bc3b215a32cf931e40791d620a278d2d5c15ff",
+      "apm-windows-x86_64.zip": "d92f74d496eebac15d7510cb0b5755e366af602f64f94b50ce288ec9d7d31235"
+    },
+    "0.8.8": {
+      "apm-darwin-arm64.tar.gz": "20171d639c0e6fe0de335543f0ee916422a8c713204c1834d47dab0a4365c3f2",
+      "apm-darwin-x86_64.tar.gz": "d63063f393421f1b6c86fbab6264a7b17dca57412cc8a02715a3ecf80f40c69c",
+      "apm-linux-arm64.tar.gz": "6013d1c6b0f2899df1b770f7eadd55f80962ece48facd180e65a388457086e53",
+      "apm-linux-x86_64.tar.gz": "27d7c77b8424558ffd290e59379f426507d6bc21950c7c06be1d3d5713bf90c1",
+      "apm-windows-x86_64.zip": "2f05a8c7f91933e7e6f5335bed420a90c7f7c2720b94dacc9a3551147281203a"
+    },
+    "0.8.7": {
+      "apm-darwin-arm64.tar.gz": "a92cb70c037c641adf3e975eea5de55d7d0483cae4b647d1b4582717aff7a21f",
+      "apm-darwin-x86_64.tar.gz": "b2e80f71ba65993864cadbc79089f828dc0f3bc52ae3b25ded31efe768e8ea6f",
+      "apm-linux-arm64.tar.gz": "bbcb24ef0ab8f622511e39ec61367626452bcf3add305378f49da1bacaeff9b3",
+      "apm-linux-x86_64.tar.gz": "5550d429f426aa9f6fe24a9289782e2c7289c6de083d65fc1985809691053224",
+      "apm-windows-x86_64.zip": "76029173c2962defdea57ef5de40aa93de4a26132d05bf5e8ecae101ee4a9dbf"
+    },
+    "0.8.6": {
+      "apm-darwin-arm64.tar.gz": "43304d2e32d3c30db6c4470e9c228785c54b31f09312fe6f06689262f2e45ce7",
+      "apm-darwin-x86_64.tar.gz": "d9787917e42ee0be9d111ebd83c81cdd7f50537f49c69eca2ba842a3b31c4648",
+      "apm-linux-arm64.tar.gz": "92fb160f253073624d7a4bb8338c07cb011e762290525be563cc7ad926a20b62",
+      "apm-linux-x86_64.tar.gz": "54ccb20d67fab99637b741c9438d211bbdf3ada631491d38e9e59daf3bcd3139",
+      "apm-windows-x86_64.zip": "023fe80fee7e24c0a9327cbc4ee87707c9608b001cc054238143c14c268551e2"
+    },
+    "0.8.5": {
+      "apm-darwin-arm64.tar.gz": "10be06d592bd75622ea966201abb83232a0a8c322235f847edbe68f3a0004f96",
+      "apm-darwin-x86_64.tar.gz": "596140d98133db7365816d4607b235783ff4f499f6c7d157f860fbe2c57cc966",
+      "apm-linux-arm64.tar.gz": "dd737344267cebcb4bafdbd22e103412aac4c49611ad8cadf216da31eac5da2f",
+      "apm-linux-x86_64.tar.gz": "222da44e043fa3c81557367caeeb8c45595781456e225da9c1d8a6f978a7b9d1",
+      "apm-windows-x86_64.zip": "75e28db2acded3f904c6463eaf82d9b391ddff02acda43d175fa22465a1b6b2c"
+    },
+    "0.8.4": {
+      "apm-darwin-arm64.tar.gz": "f10d1e91dcdf11257dca6ec1aaab2c642b2cdbde7f02f840c3bb62b965bc85f3",
+      "apm-darwin-x86_64.tar.gz": "d624903536d7bfd3f2296fd9a0c795a4ee792f8e065149dff843842f3248440c",
+      "apm-linux-arm64.tar.gz": "b8d1f950879c1a297519d38fb805ede94db1cb33646b48270637af4da1a289ee",
+      "apm-linux-x86_64.tar.gz": "ebff72a04fcc45c0321802c9cdf6d1e79eb8f0b6eb39eabe97707d8af08f5194",
+      "apm-windows-x86_64.zip": "e070261e47b634b1f3c9fd2b1649f17a094ba93e8bcd6a3b9670d715ed949178"
+    },
+    "0.8.3": {
+      "apm-darwin-arm64.tar.gz": "83b5842cfbcf293814f0d58773a4cb37de9bd8f4b7cd98407ee66431c147ce7b",
+      "apm-darwin-x86_64.tar.gz": "036ff6c087734e37146ca60d7f443718156445a2089d5e0494395b2d527dacc2",
+      "apm-linux-arm64.tar.gz": "d9189c54c6870af6974e0912b6eff027ac5ea24c677285968ab621985c406924",
+      "apm-linux-x86_64.tar.gz": "983c3acbb7a689c4e85f2d895b491f1691b3f5d6a7f01a43536abefe36609aee",
+      "apm-windows-x86_64.zip": "b6c852071780a41a6502ea2db429ae2c380c7e0efb9589c1a9ccbdc38172b284"
+    },
+    "0.8.2": {
+      "apm-darwin-arm64.tar.gz": "892a4ec173704a598d7d71fc70b3fdfc33ef14be85a2e809fd0da6ea8be7e6fe",
+      "apm-darwin-x86_64.tar.gz": "9a2cb5342cc9a03fb5bfa3cf458337b60b1c435963b23d108148fcb0bc219c45",
+      "apm-linux-arm64.tar.gz": "425fe1e62df29438e4f5568a0237b62266fd4b1ce5f0e8126108a793c3d4ffa4",
+      "apm-linux-x86_64.tar.gz": "7c607236ce3cab7bf9b2b1b013afa0605218ae6e9b16cb453d510321f178b2b8",
+      "apm-windows-x86_64.zip": "d236c05f114a4fe682d284a7f3974d354faedc3cfc01821f8dfe5c2324fff7d3"
+    },
+    "0.8.1": {
+      "apm-darwin-arm64.tar.gz": "69255b3901694055f4a59ffcbcbd04a1d381d34929a5ec83633c9b6d4e3c0823",
+      "apm-darwin-x86_64.tar.gz": "0fea4aa565db4db0278843af2865142c86d3dca8dae9136b6d2ac62d29196c79",
+      "apm-linux-arm64.tar.gz": "b1a48452f4380e4150900971b8ef44d733046a79f6e4f398613649a7587d7552",
+      "apm-linux-x86_64.tar.gz": "5fe92614420c35cb2e2449d95def42ad88d3afff557ee348416469f5bdd351c8",
+      "apm-windows-x86_64.zip": "475d336d73424b54e05a8c1c0739d860d486dce5527429b58a965bafe6fdba21"
+    },
+    "0.8.0": {
+      "apm-darwin-arm64.tar.gz": "7b231325208515d6df1d728e9142192ba7acc7b3fc658b24dd899a0ccce9c069",
+      "apm-darwin-x86_64.tar.gz": "a523580a7690fe74b2e667fef5f13bf3bdf728d6ce838970dfac3e40e2c2d73f",
+      "apm-linux-arm64.tar.gz": "56fa91a4d46762d0f099d6573d7d5e1a1a7357a3439a66e12b11f618fc7e93d7",
+      "apm-linux-x86_64.tar.gz": "9c13348b70adc624866c38199e2ce4f4c9e1995f3c4c38e423c5410ea4f61c41",
+      "apm-windows-x86_64.zip": "db980e8121f8fe3e8ed9713358ca6d7b81b70b7e5d77c0647936a8f4773d53f4"
+    },
+    "0.7.9": {
+      "apm-darwin-arm64.tar.gz": "ba572472ea8e59d1c9b6f2ce0742417749ac5536e1d35ddb4e0da56525dcf651",
+      "apm-darwin-x86_64.tar.gz": "aee984da8e7a1f154c03a08356d9d232a282bca15bd8c00b89f32a5b44420626",
+      "apm-linux-arm64.tar.gz": "b7b3fd447d7c6d46fe4d784207086054d7a754fdf6f97c3b94ed96be5781dfbd",
+      "apm-linux-x86_64.tar.gz": "3e97e2f70235106690f95ce0282011af6794f7087c022fc2caa174e2f50bb8b1",
+      "apm-windows-x86_64.zip": "c8829557e9667ba69cc43bf1e895737ab300e7c8d133c2d9d1d7a8a766ebabe7"
+    },
+    "0.7.8": {
+      "apm-darwin-arm64.tar.gz": "5455f318027fc794e0b43a3848278c8c55526dbd4faa35ba908d08d367db40f2",
+      "apm-darwin-x86_64.tar.gz": "c4b8a8797e619fc32ccd33af6b2df50e1ea0effab226a2f22c72162d0ee5b176",
+      "apm-linux-arm64.tar.gz": "ddd7272cbadcede4938d66cebd766532032bf044273f5319d3909a6ce6b1c06c",
+      "apm-linux-x86_64.tar.gz": "b86664890ce8710408acff773d9a45800f19abf68b3da59f83d52251167122f2"
+    },
+    "0.7.7": {
+      "apm-darwin-arm64.tar.gz": "dbe34dfe7fa03edd87679c16f6d64f8a522641f0f79f30cebc2a1502c8c0fd2c",
+      "apm-darwin-x86_64.tar.gz": "258d4c5cf43b2eabff69be24017a8b7ed7055bfa88b81a8d63a73f582de233ed",
+      "apm-linux-arm64.tar.gz": "34454e33b4a7c7a43fd632374863fd75be529289adf8b9c925d40bb7c0f2ddf2",
+      "apm-linux-x86_64.tar.gz": "a16f4d352c47fdaef39f90ec89a08ed750bc22a42b6f47aa9ecead815963a4a1"
+    },
+    "0.7.6": {
+      "apm-darwin-arm64.tar.gz": "2f5c73c165fa07be6820ea0e8c32e8dbb18512062d4bb76b3494ba3c1139b43d",
+      "apm-darwin-x86_64.tar.gz": "a50f05091a79d1820f4dd36a9e510ec76af3619d57a79adb4f2dedbf8b5b3c12",
+      "apm-linux-arm64.tar.gz": "537793821256db970f11632359a7809abbb044a9b531c6194aae2f5dad1d3c6e",
+      "apm-linux-x86_64.tar.gz": "795350a69771533f10dcb8df030570dc73505373c9af3d1e3672016b8ef3bd23"
+    },
+    "0.7.5": {
+      "apm-darwin-arm64.tar.gz": "5a5d771376d309a35350358f15e4171a4f7b01c9deae955c69f094b8810faae9",
+      "apm-darwin-x86_64.tar.gz": "6c7ab38caf7114533f157722a6e3afc3306da366e080b7877d43235f3173be75",
+      "apm-linux-arm64.tar.gz": "dcf07e1323b5914731048c1eb79d4cdb373765503d76b57f1a589483b9f5d62a",
+      "apm-linux-x86_64.tar.gz": "0786e77b590a4b9c7d6d7625c68e98466667d98be988c5e607517a66eb4ce624"
+    },
+    "0.7.4": {
+      "apm-darwin-arm64.tar.gz": "822e680f06ffae878b807c8303bf0856ed5e2d3b7f7f8959b4482699530d2d8f",
+      "apm-darwin-x86_64.tar.gz": "a835cd5f90bd0e500acfb8096531ad9245fb8704c02380f0afcdee3928c1a8b0",
+      "apm-linux-arm64.tar.gz": "7b543e4daf7bc029513f9eb7bbfa4240b3e1f748ffa08f243ab2f7532e7adb53",
+      "apm-linux-x86_64.tar.gz": "adf8f6ba5a8694e998fbbaf1aa7490f5bb17c75dc1683ca5825e02c325fb96cf"
+    },
+    "0.7.3": {
+      "apm-darwin-arm64.tar.gz": "cdca2b71c2db30aa941920c1f27e7f6ae3c88c70e320f485a6762ed6d5fb5386",
+      "apm-darwin-x86_64.tar.gz": "7a29eeda32b53f447f4ee7cc08e96c68cbea3b490e667747b4251cc8efe90109",
+      "apm-linux-arm64.tar.gz": "3826cf4b181442046038b8a923027ba2055b1dbc5515391117e86363390e58e6",
+      "apm-linux-x86_64.tar.gz": "3849e4cf76148f1ad03c4f1ae2f89a0b2d160980a462d801e77340c4d7401b92"
+    },
+    "0.7.2": {
+      "apm-darwin-arm64.tar.gz": "ce81017fa7f73ce68f0afa1f4d06a3d68a6308b50de18880a58b62d350cd02cc",
+      "apm-darwin-x86_64.tar.gz": "c5699e72517453710cfc4e80020ea5f110722fb76d990b6d180a92f2ec59d128",
+      "apm-linux-arm64.tar.gz": "916c92e1c78f13f022751c304e89c4e484ad1203ba1d5ef5cb397564b5b0bf3d",
+      "apm-linux-x86_64.tar.gz": "91d1b784173ae25e45ee27a5f2d33d61de9facf8b0534b9533c95ed1c105d744"
+    },
+    "0.7.1": {
+      "apm-darwin-arm64.tar.gz": "e35ffabc572852740fc0e36c0a104b525f270396d78cd93c6f922e1538fc8057",
+      "apm-darwin-x86_64.tar.gz": "8843a228f35c29c2be9c45c263d50aa4c9c1e4c4fc86ca8dc5fda7192aab35ca",
+      "apm-linux-arm64.tar.gz": "8db130eb71e4f2a6a704b24e644e77a7ab46985e939e7bb25195e87abc0f1c4e",
+      "apm-linux-x86_64.tar.gz": "4d8e250f19649769bfba5683beebd2623c3c403286da2453ddd0a2b1585f65ed"
+    },
+    "0.7.0": {
+      "apm-darwin-arm64.tar.gz": "3e037866e031e2311ce673145c9e7324279bfc57e4a426c14d2a85d7183414d5",
+      "apm-darwin-x86_64.tar.gz": "bcd070d5e742f8719331aeba792be67733f8567f41859de03619b208accc9853",
+      "apm-linux-arm64.tar.gz": "1b1d16f1ced53dbc59088e5a6d6075e9bd9d90e4e00d9c847a6f05e9c0aecf3a",
+      "apm-linux-x86_64.tar.gz": "ed4fe195166d8804d5cccc6e931fbef79d235789b25ecea6700e66d46c194bef"
+    },
+    "0.6.3": {
+      "apm-darwin-arm64.tar.gz": "96404e8ad5db792c833fa62727b0486889d8cb07e552d2942b5ddff1a654bce8",
+      "apm-darwin-x86_64.tar.gz": "d9d8f8a1af2e42aee0b5836cc070ea801cd5294bfda33d9adcc55ef244c355d1",
+      "apm-linux-arm64.tar.gz": "c675f32bcd5e8ad5d9a131d60486c706f0b1aae899a5b6a220690c2bc6b7684b",
+      "apm-linux-x86_64.tar.gz": "90f18022ba17c78dad66af507f31468626c9e69152ca6fe969aa599c3dec8923"
+    },
+    "0.6.2": {
+      "apm-darwin-arm64.tar.gz": "f943d80d45e262faf27c1025b34db8012a23cbdc1dd2a9e9c604d4074f892ffb",
+      "apm-darwin-x86_64.tar.gz": "454fb2f60a608c1706003cb7340214db3a1b486024edcf3e58cab57698b1d35c",
+      "apm-linux-arm64.tar.gz": "6e5f93573ce322c8f259483c00f712e1638fcf0f294e10412ea46a86b6132add",
+      "apm-linux-x86_64.tar.gz": "73047fae67445540b2fb06da9749aee5cf9748cf7785aa44b46568790fa7ea8b"
+    },
+    "0.6.1": {
+      "apm-darwin-arm64.tar.gz": "09fd7bab576ea15e9386961f4cd407150c3d958659028eac899c85b663a5a7d7",
+      "apm-darwin-x86_64.tar.gz": "5875d7791f328f68023751a8e8e8f9b0c94a467a463d491ffa60196ee7205635",
+      "apm-linux-arm64.tar.gz": "4a91ae2d04f60cccdfd4840262a7ba29a3982580e16e74adabb0caa6adbb0cee",
+      "apm-linux-x86_64.tar.gz": "04c67a87e91be2a6ac7abf9450f3d8912ad3f75b4b43d4db57e81720ac67b2e5"
+    },
+    "0.6.0": {
+      "apm-darwin-arm64.tar.gz": "f36e75001a57470d57f0b0f97ba82bfcab5f752cf4c8ff480fee690930a11a7d",
+      "apm-darwin-x86_64.tar.gz": "a9c8023bd37ae68c0ea51908650ba794b6d15a32b89ef94043599105a65ce2dd",
+      "apm-linux-arm64.tar.gz": "bb929a3178e0f070a0f4f5707bf8647194eee0644046d51a248703db28f6e1d1",
+      "apm-linux-x86_64.tar.gz": "7da78d8d0e919fe1ad4ce460f6d5e57b6b3d5229f9c305355a7dcc466636a9a0"
+    },
+    "0.5.9": {
+      "apm-darwin-arm64.tar.gz": "faeb574b19973d850c9b126931e9018852a5b2a065813eda6e5f9a3a73b70ac3",
+      "apm-darwin-x86_64.tar.gz": "1d985320f8d4c4edf095327ded27112d498525a556c2bb60685e9c5772b3ff35",
+      "apm-linux-arm64.tar.gz": "2fc4ecb2b1365ed9f38b1eddefb6eadbba1e3e376ad12894229d4ba94151be6c",
+      "apm-linux-x86_64.tar.gz": "995a621a91335b570f17a2bcc2e1b1e79b7e2468735ba363aee4e342dc71efe7"
+    },
+    "0.5.8": {
+      "apm-darwin-arm64.tar.gz": "db53cf4232334398f5765eb620ee5c841989afb142b05a39af76cdb9ebe04569",
+      "apm-darwin-x86_64.tar.gz": "7ec594a1059bff6671ba91d9a4cb83434f528b3024ac1801589c8c267f46b42a",
+      "apm-linux-arm64.tar.gz": "cbe985a1f2ad9ef1f89eaa56c5b28ccc0a0744a7074c291addb276cf2fe6bec3",
+      "apm-linux-x86_64.tar.gz": "4d7c34204e115f426981f795a0a13e9eba79ac6cb6f5319c7cf60784ce81adb9"
+    },
+    "0.5.7": {
+      "apm-darwin-arm64.tar.gz": "f0319e4a2f713a4ce0a517cdeb322e3a3d18f5bd3acb8063c4ffa22a90ac1d25",
+      "apm-darwin-x86_64.tar.gz": "b6c2f38781b3c8a6368a276ac8aa8f486619ce8d920944f0ef3a3176c758f0c2",
+      "apm-linux-arm64.tar.gz": "76d485655249ee85261e25fa6b1eea5d9b9b5eba0d8eeb75fc8bfe68d9e21eaa",
+      "apm-linux-x86_64.tar.gz": "4f969aabb347605853702b263c8f8920b3598c1f93a53e4e3ade7947c0642f5e"
+    },
+    "0.5.6": {
+      "apm-darwin-arm64.tar.gz": "de27ebace294357b378dac67ffd9a6fb7eb1841f798ac188510fe3519aa02599",
+      "apm-darwin-x86_64.tar.gz": "b7758a7461cee6ec3e435fca62800b31fdeee0760d2f9498feb53927b0be17bd",
+      "apm-linux-arm64.tar.gz": "620917245c2ed034af6a1866c913bae9fd7d84f34ba4abab63353d77e4d2cab5",
+      "apm-linux-x86_64.tar.gz": "db466d7c2fe1eed754884682735ce2547db7b1703e7f8138bb28878fe755b2d7"
+    },
+    "0.5.5": {
+      "apm-darwin-arm64.tar.gz": "9f41fb8e907d34715a161a1b4dfc4d758434d4ebae331aeedeb7682016e23840",
+      "apm-darwin-x86_64.tar.gz": "fc61e99ae0d70b0e1fea9eb51ca80edaf67c27dad1ff9c3ebb2c02f3bd1aae50",
+      "apm-linux-arm64.tar.gz": "a41f238c21cbbdbecb72e381469a62a6e689b00c97edf2e636f95a067e80bb9d",
+      "apm-linux-x86_64.tar.gz": "6aa51c57a248d94f0dd4237bba9777f03b6de0ef6327ff4293e5e712bd6f1025"
+    },
+    "0.5.4": {
+      "apm-darwin-arm64.tar.gz": "6cf74e42ab68680dc73f88024a92ea42e0044a69a7fc319f9300a94107298062",
+      "apm-darwin-x86_64.tar.gz": "47c8f7c6a2edcf40629a705a74d2f998c1388170ec223289c8195bf74b849d16",
+      "apm-linux-arm64.tar.gz": "c3ebf69b17173adf63b26369c55aed7b7473511714191433e62e5fe97e813311",
+      "apm-linux-x86_64.tar.gz": "7b3b76f90c32f167d29fba8f1aca96eccbd483a5c3b1c2e2bbd6a6a1f3063cd1"
+    },
+    "0.5.3": {
+      "apm-darwin-arm64.tar.gz": "df92f3bada0534efeaa1a00fd0b6ba0a4fa0271ea5cd5f9e4d0f7202a9032873",
+      "apm-darwin-x86_64.tar.gz": "b1f3a2fc71044ba1ab4368f8f3a958300fddcb8e6dcd8bf269a66dfa0eeaaab4",
+      "apm-linux-arm64.tar.gz": "d6b08bc56bb5ecba20afe0dc0dfa4842d452d911c9ef3b91b802c3e73e50005d",
+      "apm-linux-x86_64.tar.gz": "20abcb40917907630b0b93b929e31423837e31d2cb3077d4e1b2f06d3dde5247"
+    },
+    "0.5.2": {
+      "apm-darwin-arm64.tar.gz": "8f45dc07d6ed0725d35ef4ef993f6989a62e8098a9d4f92d341dd1e8e1e1adcc",
+      "apm-darwin-x86_64.tar.gz": "6bf384cf3363e16a638fcd6553dc05c488bd78a59a4660445f46f841ea76e752",
+      "apm-linux-arm64.tar.gz": "e41bcea100a60cda9cac601286a2c6e9426aacfd8f0d8bc1d231928f7d683c53",
+      "apm-linux-x86_64.tar.gz": "803300322c2f735172f35743a32308d0c5d2ff159e808c1c30dd7b84586d0244"
+    },
+    "0.5.1": {
+      "apm-darwin-arm64.tar.gz": "dbd0bfa130939952e681a5611647383e9e1a823fe81ec58eddb11d9eda672a92",
+      "apm-darwin-x86_64.tar.gz": "cd1f2ec817b8ea2886e385ea1765fac43795a28699c12424e7fb23ce8333884a",
+      "apm-linux-arm64.tar.gz": "46ba2c6ee3654a66c5c205edb419a663fa241cf6ab039c1893efdb0905c740b3",
+      "apm-linux-x86_64.tar.gz": "cff24412978f379db25536a51b684c83f2b7a78415a848e5a177c8fcb30f62ea"
+    },
+    "0.5.0": {
+      "apm-darwin-arm64.tar.gz": "4f2b0c860ea0460c5b78fa57d2836e9a36f6f7fc74dde2a6e00a793732053126",
+      "apm-darwin-x86_64.tar.gz": "65e45fc23b659e6045a5a793beb13604fea4d161d716dbe52001e3477b866778",
+      "apm-linux-arm64.tar.gz": "cd6b22920ea1ceaadb14696db3db5c5a021ff25d5884babc57cce48eb307cd94",
+      "apm-linux-x86_64.tar.gz": "2d2d65feee8b2a3046d6a2a54da119a25867a2ac4d786696dc26657c9f829a8c"
+    },
+    "0.4.3": {
+      "apm-darwin-arm64.tar.gz": "a63a5bd6ecb47fb1e5ec8f84cc928f61104a1748ccb251176059b0e4a1953ede",
+      "apm-darwin-x86_64.tar.gz": "eec41b64bf460f540702199aadda709b667257eeae610a93e3f6c0730229bd86",
+      "apm-linux-arm64.tar.gz": "e02d2dd2ca013b69917e91add3823a9a67376af16768b0244a49d59cc04d627e",
+      "apm-linux-x86_64.tar.gz": "2a2d1f18b87ff3bfbc076de659c717e4a310368e2e594a028d5273c3e14bbb8d"
+    },
+    "0.4.2": {
+      "apm-darwin-arm64.tar.gz": "26ae457d797f2098a7698bb0da62e5d50c3db74ebe56132dba5cbeaee35b7426",
+      "apm-darwin-x86_64.tar.gz": "52faf006798e4012b6276773905141b66d9752c470971f51f710735dac8fccdd",
+      "apm-linux-x86_64.tar.gz": "55eca8060d9c65e3b1a9180f8f4d2ab004132297632d465e6aac72ec199d5b3e"
+    },
+    "0.4.1": {
+      "apm-darwin-arm64.tar.gz": "75a35251e249706c2eea4014facdd797a26cdba4f886dfd89612e8a60c31c57e",
+      "apm-darwin-x86_64.tar.gz": "5b59f4fc61753ecdcca36c7504a4550ab1fa0251ddbffd3e1b3cfe6e1e2ac385",
+      "apm-linux-x86_64.tar.gz": "acb318e91eb5b10280a74546dcf3ce08d099dd381b4d793bf34bfbdd5ccc210b"
+    },
+    "0.4.0": {
+      "apm-darwin-arm64.tar.gz": "4bf66233a12119472cd5775e73a1e14b75271d0367866543153aeee08dbd1603",
+      "apm-darwin-x86_64.tar.gz": "1fdf0189b1a8483a2665ab6d556a84684332771741d2a6158b928df3dd6f9fca",
+      "apm-linux-x86_64.tar.gz": "fb7e12acb24e0efe31eee982e6b2904677d5931c57ba415c26d373a504828030"
+    }
+  }
+}
