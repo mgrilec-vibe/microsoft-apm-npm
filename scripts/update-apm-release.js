@@ -183,6 +183,23 @@ async function readUpdateInputs(root, fetchImpl) {
   };
 }
 
+function mergeHistoricalHashes(existingHashes, discoveredHashes) {
+  const mergedHashes = { ...existingHashes };
+
+  for (const [version, releaseHashes] of Object.entries(discoveredHashes)) {
+    const versionHashes = { ...mergedHashes[version] };
+    for (const [archive, digest] of Object.entries(releaseHashes)) {
+      if (versionHashes[archive] && versionHashes[archive] !== digest) {
+        throw new Error(`Refusing to replace the pinned SHA-256 digest for ${version}/${archive}.`);
+      }
+      versionHashes[archive] = digest;
+    }
+    mergedHashes[version] = versionHashes;
+  }
+
+  return mergedHashes;
+}
+
 async function updatePinnedRelease({ root = path.resolve(__dirname, '..'), fetchImpl } = {}) {
   const readmePath = path.join(root, 'README.md');
   const [{ manifestPath, manifest, releases }, readme] = await Promise.all([
@@ -206,10 +223,11 @@ async function updatePinnedRelease({ root = path.resolve(__dirname, '..'), fetch
   await Promise.all([
     fs.writeFile(
       manifestPath,
-      serializeManifest(manifest, release.parsedVersion.version, {
-        ...manifest.hashes,
-        [release.parsedVersion.version]: hashes,
-      }),
+      serializeManifest(
+        manifest,
+        release.parsedVersion.version,
+        mergeHistoricalHashes(manifest.hashes, { [release.parsedVersion.version]: hashes }),
+      ),
     ),
     fs.writeFile(readmePath, nextReadme),
   ]);
@@ -223,15 +241,16 @@ async function backfillReleaseHashes({ root = path.resolve(__dirname, '..'), fet
     release.parsedVersion.version,
     availableHashesFromRelease(release),
   ]).filter(([, releaseHashes]) => Object.keys(releaseHashes).length > 0));
-  const nextManifest = serializeManifest(manifest, manifest.version, hashes);
+  const mergedHashes = mergeHistoricalHashes(manifest.hashes, hashes);
+  const nextManifest = serializeManifest(manifest, manifest.version, mergedHashes);
   const currentManifest = await fs.readFile(manifestPath, 'utf8');
 
   if (nextManifest === currentManifest) {
-    return { updated: false, version: manifest.version, versions: Object.keys(hashes).length };
+    return { updated: false, version: manifest.version, versions: Object.keys(mergedHashes).length };
   }
 
   await fs.writeFile(manifestPath, nextManifest);
-  return { updated: true, version: manifest.version, versions: Object.keys(hashes).length };
+  return { updated: true, version: manifest.version, versions: Object.keys(mergedHashes).length };
 }
 
 async function main() {

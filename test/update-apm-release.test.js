@@ -136,6 +136,35 @@ test('backfills hashes for all compatible stable releases', async () => {
   assert.deepEqual(Object.keys(manifest.hashes).sort(), ['0.25.0', '0.26.0']);
 });
 
+test('backfill preserves hashes for releases no longer returned by the API', async () => {
+  const { root } = await writeFixture({
+    hashes: { '0.3.0': { 'apm-linux-x86_64.tar.gz': 'a'.repeat(64) } },
+  });
+
+  const result = await backfillReleaseHashes({
+    root,
+    fetchImpl: releaseFetcher([release('v0.25.0')]),
+  });
+
+  assert.deepEqual(result, { updated: true, version: '0.26.0', versions: 2 });
+  const manifest = JSON.parse(await fs.readFile(path.join(root, 'lib', 'release-manifest.json'), 'utf8'));
+  assert.equal(manifest.hashes['0.3.0']['apm-linux-x86_64.tar.gz'], 'a'.repeat(64));
+});
+
+test('backfill rejects a release digest that conflicts with an existing pin', async () => {
+  const { root } = await writeFixture({
+    hashes: { '0.25.0': { 'apm-linux-x86_64.tar.gz': 'a'.repeat(64) } },
+  });
+
+  await assert.rejects(
+    () => backfillReleaseHashes({
+      root,
+      fetchImpl: releaseFetcher([release('v0.25.0')]),
+    }),
+    /Refusing to replace the pinned SHA-256 digest/,
+  );
+});
+
 test('backfills available hashes from older releases with incomplete platform support', async () => {
   const { root } = await writeFixture();
   const olderRelease = release('v0.7.8');
