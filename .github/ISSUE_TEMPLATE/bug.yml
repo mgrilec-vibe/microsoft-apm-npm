@@ -1,0 +1,95 @@
+name: Bug report
+description: Report a reproducible problem in the @mgrilec/apm npm wrapper
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a wrapper problem. For Microsoft APM itself, use https://github.com/microsoft/apm/issues instead.
+        Do not report security vulnerabilities here or include tokens, private URLs, or other sensitive data.
+
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: I removed secrets and other sensitive data from this report.
+          required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Describe the observed wrapper behavior and any error message.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: List the commands and setup needed to reproduce this. Redact sensitive values.
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: wrapper-version
+    attributes:
+      label: "@mgrilec/apm version"
+      placeholder: 0.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: v22.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: npm-version
+    attributes:
+      label: npm version
+      placeholder: 11.0.0
+
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: CPU architecture
+      options:
+        - x64
+        - arm64
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste sanitized output only. Omit credentials, tokens, private URLs, and sensitive paths.
+      render: shell
