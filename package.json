@@ -1,12 +1,16 @@
 {
   "name": "@mgrilec/apm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "npm launcher for the Microsoft APM CLI",
   "license": "MIT",
   "author": "mgrilec",
   "repository": {
     "type": "git",
     "url": "https://github.com/mgrilec/apm"
+  },
+  "homepage": "https://github.com/mgrilec/apm#readme",
+  "bugs": {
+    "url": "https://github.com/mgrilec/apm/issues"
   },
   "keywords": [
     "apm",
