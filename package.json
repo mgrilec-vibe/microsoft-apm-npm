@@ -4,6 +4,10 @@
   "description": "npm launcher for the Microsoft APM CLI",
   "license": "MIT",
   "author": "mgrilec",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mgrilec/apm"
+  },
   "keywords": [
     "apm",
     "microsoft",
