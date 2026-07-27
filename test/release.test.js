@@ -3,7 +3,13 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 
-const { DEFAULT_VERSION, normalizeVersion, resolveRelease } = require('../lib/release');
+const {
+  DEFAULT_VERSION,
+  normalizeDownloadBaseUrl,
+  normalizeVersion,
+  RELEASE_HASHES,
+  resolveRelease,
+} = require('../lib/release');
 
 for (const [platform, arch, archive, executable] of [
   ['darwin', 'arm64', 'apm-darwin-arm64.tar.gz', 'apm'],
@@ -19,11 +25,23 @@ for (const [platform, arch, archive, executable] of [
     assert.equal(release.executable, executable);
     assert.equal(release.version, DEFAULT_VERSION);
     assert.equal(release.archiveUrl, `https://github.com/microsoft/apm/releases/download/v${DEFAULT_VERSION}/${archive}`);
+    assert.equal(release.expectedChecksum, RELEASE_HASHES[DEFAULT_VERSION][archive]);
   });
 }
 
 test('normalizes a leading v in an explicit version', () => {
   assert.equal(normalizeVersion('v1.2.3-rc.1'), '1.2.3-rc.1');
+});
+
+test('constructs release URLs from a validated enterprise mirror', () => {
+  const release = resolveRelease('linux', 'x64', DEFAULT_VERSION, 'https://mirror.example/apm/');
+  assert.equal(release.archiveUrl, `https://mirror.example/apm/v${DEFAULT_VERSION}/apm-linux-x86_64.tar.gz`);
+});
+
+test('rejects insecure and ambiguous enterprise mirrors', () => {
+  assert.throws(() => normalizeDownloadBaseUrl('http://mirror.example/apm'), /HTTPS URL/);
+  assert.throws(() => normalizeDownloadBaseUrl('https://user:secret@mirror.example/apm'), /without credentials/);
+  assert.throws(() => normalizeDownloadBaseUrl('https://mirror.example/apm?version=1'), /without credentials/);
 });
 
 test('rejects versions that cannot be safely embedded in a release URL', () => {
