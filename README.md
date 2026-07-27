@@ -64,9 +64,7 @@ The wrapper is intentionally small: it owns installation and verification; the d
 
 ```mermaid
 flowchart TD
-    command["<b>npm exec -- apm &lt;command&gt;</b>"] --> guard{"<b>self-update?</b>"}
-    guard -->|yes| blocked["<b>Stop</b><br/>Self-update is disabled"]
-    guard -->|no| target["Resolve pinned version<br/>and platform asset"]
+    command["<b>npm exec -- apm &lt;command&gt;</b>"] --> target["Resolve pinned version<br/>and platform asset"]
     target --> cached{"Verified cached<br/>binary + marker?"}
 
     cached -->|yes| execute["Run native APM<br/>with the original arguments"]
@@ -82,10 +80,8 @@ flowchart TD
 
     classDef primary fill:#0969da,color:#fff,stroke:#0550ae;
     classDef secure fill:#dafbe1,color:#1a7f37,stroke:#1a7f37;
-    classDef warning fill:#ffebe9,color:#cf222e,stroke:#cf222e;
     class command,execute,result primary;
     class fetch,verify,extract,publish secure;
-    class blocked warning;
 ```
 
 <details>
