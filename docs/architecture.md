@@ -136,19 +136,21 @@ So the default release (`0.26.0`) demands triple agreement (archive, upstream si
 - Entries containing backslashes, empty segments, `.` or `..` segments.
 - Final destinations that resolve outside the installation directory.
 
-Tar additionally rejects any entry whose type is not `file` or `directory`. ZIP filters to non-directory entries and writes only `file` types.
+Tar additionally rejects any entry whose type is not `file` or `directory`. ZIP treats names ending in `/` as directories and writes every other entry as a regular file after path validation; it does not inspect ZIP metadata types separately.
 
 The tar path uses `tar-stream` rather than the shell's `tar` to avoid spawning a child process and to surface sync vs. async issues consistently. The zip path uses `yauzl`'s promise API; entries are opened lazily and read sequentially with size validation.
 
 ### Publication
 
-`installRelease` writes the marker and renames the temporary installation directory into place. The rename is atomic on every supported filesystem. If the rename fails because the target already exists (some platforms do not-overwrite behavior on directory renames), the launcher re-validates the cache; if the cache already contains a usable installation, the rename is treated as a no-op; otherwise the original error is re-raised.
+`installRelease` writes the marker inside the temporary installation directory, then calls `fs.rename` to publish that directory at the final cache path. If the target already exists (some platforms do not overwrite existing directories), the launcher re-validates the cache; if it is usable, the rename is treated as a no-op; otherwise the original error is re-raised.
 
 ### Execution
 
 `run` `spawn`s the cached binary with `stdio: 'inherit'`. This propagates arguments, signals, exit code, and terminal I/O without modification. The exit code is propagated to `bin/apm.js`, which sets `process.exitCode` so npm sees a faithful exit.
 
 ## Module surface
+
+Only the properties assigned to `module.exports` are usable by importers. The remaining named helpers are internal implementation details and may change without an API guarantee.
 
 ### `bin/apm.js`
 
@@ -158,38 +160,35 @@ main() → exitCode
 
 Side-effect only; no exported symbols. Calls `run.main`.
 
-### `lib/run.js`
+### `lib/run.js` exports
 
 - `main(args = process.argv.slice(2))` — top-level entry; validates the command, ensures the binary, runs it. Returns a `Promise<number>`.
 - `assertSupportedCommand(args)` — rejects `self-update`.
 - `signalExitCode(signal)` — POSIX 128 + signal mapping for unusual exits.
 - `run(binary, args)` — spawn wrapper that resolves with the child's exit code (or signal-mapped code).
 
-### `lib/installer.js`
+### `lib/installer.js` exports
 
 - `cacheRoot(environment, platform)` — default or overridden cache root.
-- `isUsableFile(file)` — used for the executable check.
-- `isUsableInstallation(directory, release)` — gate function for the cache.
-- `positiveInteger(environment, name, fallback)` — environment-variable coercion with explicit validation.
-- `downloadDispatcher(environment)` — builds an `EnvHttpProxyAgent` from env vars.
-- `download(url, destination, options)` — does the HTTPS fetch + write.
-- `expectedChecksum(contents)`, `sha256(file)`, `verifyChecksum(archive, checksumFile, pinnedChecksum)` — checksum path.
-- `archiveRoot(release)`, `archiveDestination(installationDirectory, entryName, release)` — extraction safety.
-- `acquireInstallLock`, `withInstallLock` — concurrent-install coordination.
-- `extractTar`, `extractZip`, `extractArchive` — extraction drivers.
-- `installationError(error, release, installDirectory)` — user-facing error formatter.
-- `installRelease(installDirectory, binary, release, downloadOptions)` — full first-install routine.
 - `ensureApmBinary({ platform, arch, environment })` — top-level entry used by `run.js`.
+- `expectedChecksum(contents)`, `sha256(file)`, `verifyChecksum(archive, checksumFile, pinnedChecksum)` — checksum path.
+- `downloadDispatcher(environment)` — builds an `EnvHttpProxyAgent` from env vars.
+- `archiveDestination(installationDirectory, entryName, release)` — validates and resolves extraction destinations.
+- `positiveInteger(environment, name, fallback)` — environment-variable coercion with explicit validation.
+- `withInstallLock(installDirectory, environment, operation)` — runs an operation under the per-target lock.
 
-### `lib/release.js`
+`isUsableFile`, `isUsableInstallation`, `download`, `archiveRoot`, `acquireInstallLock`, the extraction helpers, `installationError`, and `installRelease` are internal helpers; they are not exported.
+
+### `lib/release.js` exports
 
 - `DEFAULT_VERSION` — `0.26.0`.
 - `RELEASE_HASHES` — embedded digests per asset.
 - `PLATFORM_ASSETS` — `(platform, arch) → { archive, executable }`.
-- `VERSION_PATTERN` — semver validator.
 - `normalizeVersion(value)` — semver coercion with the `v` prefix stripped.
 - `normalizeDownloadBaseUrl(value)` — HTTPS-only URL validator.
 - `resolveRelease(platform, arch, version, downloadBaseUrl)` — the single source of truth for "what archive do I fetch?".
+
+`VERSION_PATTERN` is internal and is not exported.
 
 ### `Release` shape
 
@@ -201,11 +200,11 @@ Side-effect only; no exported symbols. Calls `run.main`.
   tag: string;              // upstream tag, e.g. "v0.26.0"
   archiveUrl: string;       // absolute HTTPS URL to the archive
   checksumUrl: string;      // archiveUrl + ".sha256"
-  expectedChecksum?: string // uppercase hex digest if RELEASE_HASHES covers (version, archive)
+  expectedChecksum?: string // lowercase SHA-256 hex when RELEASE_HASHES covers (version, archive)
 }
 ```
 
-`expectedChecksum` is `undefined` when the version is not in `RELEASE_HASHES`. Pass it to `verifyChecksum` as `pinnedChecksum` if you want triple-equal verification for the default version while still permitting floating versions.
+`expectedChecksum` is `undefined` when the version is not in `RELEASE_HASHES`. The default release passes it to `verifyChecksum` so the archive, upstream sidecar, and embedded digest must agree. A non-default release has no package-pinned digest.
 
 ## Read order for new contributors
 

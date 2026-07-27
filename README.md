@@ -264,8 +264,8 @@ If you call the launcher from a `process.platform`/`process.arch` combination th
 | **Tampered archive bytes** | The archive is hashed; the digest is cross-checked against the upstream SHA-256 sidecar and, for the default version, against a digest embedded in the package. | `lib/installer.js` (`verifyChecksum`, `sha256`). |
 | **TLS interception / downgrade** | All downloads are HTTPS. The launcher's URL parser rejects non-`https:` URLs, URLs with credentials, query strings, or fragments. | `lib/release.js` (`normalizeDownloadBaseUrl`). |
 | **Path traversal in archive** | Every archive entry is checked to live under the expected root with non-`..`, non-`.`, and no backslashes. The final destination is asserted to stay under the installation directory. | `lib/installer.js` (`archiveDestination`). |
-| **Symlink / device / fifo smuggling** | Tar entries that are not `file` or `directory` are rejected. ZIP entries that target non-`file` paths are likewise rejected. | `lib/installer.js` (`extractTar`, `extractZip`). |
-| **Stale cache after archive change** | Cache entries carry a marker (`.microsoft-apm-npm-layout-v2`) whose contents must equal the currently requested release tag. | `lib/installer.js` (`isUsableInstallation`). |
+| **Archive-entry safety** | Tar rejects non-`file`/`directory` entries. Both formats validate the archive root and destination path; ZIP treats `/`-suffixed names as directories and writes other entries as regular files. | `lib/installer.js` (`extractTar`, `extractZip`). |
+| **Cache layout mismatch** | Cache entries require an executable and a marker whose contents equal the requested release tag. This is not a fresh integrity check: cache hits are not re-hashed, so the cache directory must remain protected by OS permissions. | `lib/installer.js` (`isUsableInstallation`). |
 | **Concurrent half-extracted state** | Extraction happens in a temporary directory under the cache root; the directory is renamed into place only after checksum verification and extraction succeed. | `lib/installer.js` (`installRelease`). |
 | **Concurrent duplicate installs** | A per-target lock serializes the "fetch + verify + extract + publish" path. | `lib/installer.js` (`acquireInstallLock`). |
 | **Lock held forever** | The lock writes an `owner.json` heartbeat that re-stamps every `min(max(1s, stale/3), 30s)`. After `MICROSOFT_APM_LOCK_STALE_MS` of inactivity the directory is reclaimable. | `lib/installer.js` (`acquireInstallLock`). |
@@ -286,8 +286,8 @@ If you call the launcher from a `process.platform`/`process.arch` combination th
                        (GitHub Releases or mirror)
 ```
 
-- The npm package is the first trust boundary. You trust it to embed correct digests and to enforce verification.
-- The upstream release server is the second. The launcher does **not** trust it; it treats the network as untrusted.
+- For the default release, the npm package is the first trust boundary: it embeds expected digests and enforces verification before first cache publication. Explicitly selected non-default releases trust their upstream SHA-256 sidecar.
+- The local cache directory is another trust boundary. The launcher checks the executable and release marker on cache hits, but does not re-hash cached bytes; any principal that can replace both can change what runs.
 
 ### 5.3 Release pin vs. embedded digest
 
@@ -336,7 +336,7 @@ The launcher's error messages are designed to point at one specific failure mode
 For the default version (`0.26.0`) the launcher expects the upstream sidecar to equal the digest embedded in this package. This check exists so that a compromised upstream sidecar alone cannot change which bytes you run — the package author also has to agree. A mismatch is a high-signal integrity event; do not work around it. The correct remedies:
 
 1. **Do not bypass this failure.** Switching to a non-default `MICROSOFT_APM_VERSION` to evade the check defeats the protection; it does not fix whatever caused the disagreement.
-2. **Verify the upstream release yourself.** Open the [Microsoft APM release page](https://github.com/microsoft/apm/releases/tag/v<version>) in a browser. The release notes, the published `.sha256` sidecar, and the archived asset are all authoritative; if the upstream sidecar has changed without a release note, that is itself a signal to stop and ask.
+2. **Verify the upstream release yourself.** Open [Microsoft APM releases](https://github.com/microsoft/apm/releases) in a browser and select the tag for the normalized version (`0.26.0` becomes `v0.26.0`). The release notes, published `.sha256` sidecar, and archived asset are authoritative; if the upstream sidecar has changed without a release note, that is itself a signal to stop and ask.
 3. **Stop the run.** Do not execute the unverified binary. The launcher's job is to refuse in this state.
 4. **Open an issue** with the verbatim error, your `MICROSOFT_APM_VERSION`, whether `MICROSOFT_APM_DOWNLOAD_BASE_URL` is set (and to which value), and a sanitized note of where the mismatch was observed. Do not paste the sidecar or any URL that includes credentials or a private mirror path; the launcher's error message already names the sidecar location.
 5. **Wait for a fixed release.** A correct fix is a new package version with an updated `RELEASE_HASHES` (or a documented retraction of the upstream release), reviewed and published through the normal release workflow. Pinning to that version, or to the previous one if the upstream release is retracted, is the supported path.

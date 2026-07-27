@@ -6,7 +6,7 @@ If you are a user who just wants to install the package safely, the README is en
 
 ## Headline guarantee
 
-When the launcher runs an APM command, it runs the exact bytes that the package expected at install time — no more, no less. Everything else on this page is the machinery that makes that statement true.
+On a **fresh installation**, the launcher verifies the downloaded archive before publishing it to the cache. For the default version, the archive must match both the upstream sidecar and a digest embedded in this package; for an explicitly selected non-default version, it must match the upstream sidecar. On a later cache hit, the launcher checks only the executable and release marker, not a fresh digest, so the cache directory remains an operating-system trust boundary.
 
 ## Trust boundaries
 
@@ -21,12 +21,13 @@ When the launcher runs an APM command, it runs the exact bytes that the package 
                        (GitHub Releases or mirror)
 ```
 
-The launcher sits between two trust boundaries:
+The launcher crosses three trust boundaries:
 
-1. **The npm package** that you `npm install`. You trust it to embed correct digests and to enforce verification.
-2. **The upstream release server** that serves archive bytes. The launcher does not trust this server; it treats it as untrusted.
+1. **The npm package** that you `npm install`. For the default release, you trust it to embed the expected digests and to enforce verification.
+2. **The upstream release server or configured mirror** that serves archive bytes and the SHA-256 sidecar. The default release has a package-embedded digest in addition to that sidecar; an explicitly selected non-default release trusts the sidecar.
+3. **The local cache directory.** The launcher verifies bytes before first publication, but later cache hits are not re-hashed. A principal that can replace the cached executable and marker can change what is run.
 
-The output of the launcher (the cached binary) is treated as untrusted by Microsoft APM itself: when invoked, a normal APM install will fetch a Microsoft-internal CLI into the user's home directory. That step is upstream behavior.
+When invoked, the cached Microsoft APM binary may fetch a Microsoft-internal CLI into the user's home directory. That step is upstream behavior.
 
 ## Threat model per protection
 
@@ -41,33 +42,33 @@ For each protection below: what attack the protection defends against, the sourc
 
 ### Download integrity (`lib/installer.js`)
 
-- **Attack.** A network attacker swaps the archive bytes in flight and serves the launcher's cached executable something different.
-- **Defense.** The archive bytes are hashed with SHA-256 and compared to the sidecar (and, for the default version, the embedded digest). The sidecar is fetched over the same HTTPS connection, but TLS guarantees authenticity of the channel, and the embedded digest guarantees the sidecar itself has not been substituted.
-- **What defeats it.** A *simultaneous* compromise of the upstream GitHub Releases endpoint, the TLS chain trusted by the host, and the package's own embedded digest. Three independent pivots.
-- **What does not defeat it.** TLS interception alone, because the launcher retains the upper bound of "matches what we expected". An attacker-only check would also require a non-match; with a pinned digest, any substituted archive hashes differently from expectation.
+- **Attack.** A network attacker or release-server compromise swaps archive bytes before the launcher publishes a cache entry.
+- **Defense.** `verifyChecksum` hashes each downloaded archive. For the default version it requires agreement among archive bytes, the upstream sidecar, and the package-embedded digest. For a non-default version it compares the archive only to the sidecar.
+- **What defeats it.** A default-release substitution requires changing the package-embedded digest (or defeating SHA-256). For a non-default release, a trusted transport proxy or configured mirror that can alter both the archive and its sidecar can make a matching pair.
+- **What does not defeat it.** A passive or unauthenticated network observer cannot change a successful HTTPS response. This does not extend to a locally modified cache; see [Cache layout consistency](#cache-layout-consistency).
 
 ### Transport (`lib/release.js`)
 
 - **Attack.** Redirect downloads to `http:`, a `file:` URL, or a credentialed HTTPS endpoint that an attacker controls.
-- **Defense.** `normalizeDownloadBaseUrl` enforces `https:`, no userinfo, no query string, no fragment. The default is hardcoded to GitHub Releases, which the user has to actively replace.
-- **What defeats it.** A user who intentionally points the launcher at a mirror that later loses integrity. The launcher trusts whatever mirror you give it to the same extent it trusts GitHub Releases.
+- **Defense.** `normalizeDownloadBaseUrl` enforces `https:`, no userinfo, no query string, and no fragment. The default is hardcoded to GitHub Releases, which the user has to actively replace.
+- **Limit.** The host's TLS trust configuration remains in scope. A trusted TLS-interception proxy can modify an explicitly selected non-default release together with its sidecar; the default release remains constrained by its package-embedded digest.
 
 ### Archive safety (`lib/installer.js`)
 
-- **Attack.** A tampered archive writes outside its declared root (`..`), uses device/fifo/symlink entries to redirect reads, or escapes the installation directory.
-- **Defense.** Three guards:
+- **Attack.** A tampered archive writes outside its declared root (`..`), uses a tar device/fifo/symlink entry to redirect reads, or escapes the installation directory.
+- **Defense.**
   - `archiveDestination` rejects entries not under the archive root, entries with empty / `.` / `..` segments, and entries with backslashes.
   - The final destination is asserted to remain under the installation directory (`path.resolve` + `startsWith`).
-  - Tar rejects any entry whose type is not `file` or `directory`; ZIP skips non-`file` entries.
+  - Tar rejects any entry whose type is not `file` or `directory`. ZIP entry names ending in `/` become directories; remaining ZIP entries are written as regular files after path validation. The ZIP path does not inspect or reject archive metadata types separately.
 - **What defeats it.** A vulnerability in `tar-stream` or `yauzl` that bypasses our entry-level filter. Upstream dependency CVEs are tracked and patched through normal update flow.
 - **What does not defeat it.** A "well-formed" archive whose *contents* are themselves malicious. The launcher verifies bytes; it does not parse APM. See [What the launcher does not protect against](#what-the-launcher-does-not-protect-against).
 
-### Cache integrity (`lib/installer.js`)
+### Cache layout consistency (`lib/installer.js`)
 
-- **Attack.** A user copies a pre-populated cache directory from a different `(version, platform, arch)` and expects to bypass a download.
-- **Defense.** The marker `.microsoft-apm-npm-layout-v2` must contain exactly the upstream tag matching the requested version. Otherwise `isUsableInstallation` returns `false` and the launch path re-downloads.
-- **What defeats it.** A user who happens to *want* to run the cached bytes from an alternate version. Set `MICROSOFT_APM_VERSION` accordingly; that is not a defect, that is configuration.
-- **What does not defeat it.** Partial installs. A directory that has the executable but is missing the marker is treated as absent. The marker is set as the final step, after rename.
+- **Attack.** A partial or wrong-version installation is mistaken for a usable cache entry.
+- **Defense.** `isUsableInstallation` requires an executable and `.microsoft-apm-npm-layout-v2` whose exact contents equal the requested release tag. The cache directory path also includes the requested version, platform, and architecture.
+- **Limit.** This is a layout check, not a cache-integrity check: the launcher does not re-hash a cached executable. A principal that can write both the executable and marker can replace the program that runs.
+- **What does not defeat it.** The marker is written in the temporary installation directory after extraction and before `fs.rename` publishes that directory. A partial final directory missing the marker is therefore treated as absent.
 
 ### Concurrent install safety (`lib/installer.js`)
 
@@ -90,8 +91,8 @@ For each protection below: what attack the protection defends against, the sourc
 ### `apm self-update` (`lib/run.js`)
 
 - **Attack.** The upstream APM supports a `self-update` command that replaces the binary in place. An attacker who controls the cached binary could use this to bypass the launcher-pinned version.
-- **Defense.** `assertSupportedCommand` rejects `apm self-update` with a descriptive error before any binary is invoked. The launcher does not provide any other path to overwrite the cached executable.
-- **What does not defeat it.** Direct filesystem access to the cache directory. See [What the launcher does not protect against](#what-the-launcher-does-not-protect-against).
+- **Defense.** `assertSupportedCommand` rejects `apm self-update` with a descriptive error before any binary is invoked. The launcher does not provide another command-line path to overwrite the cached executable.
+- **What defeats it.** Direct filesystem access to the cache directory can still replace the cached executable and marker; protect that directory with normal OS permissions.
 
 ### Loss of TTY/stdin/stdout (`lib/run.js`)
 
