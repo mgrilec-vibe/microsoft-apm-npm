@@ -29,7 +29,7 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          expected="v$(node --print \"require('./package.json').version\")"
+          expected="v$(node --print "require('./package.json').version")"
           test "$RELEASE_TAG" = "$expected" || {
             echo "Release tag $RELEASE_TAG does not match package version $expected" >&2
             exit 1
