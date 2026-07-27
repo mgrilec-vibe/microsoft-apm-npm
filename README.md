@@ -51,10 +51,19 @@ The value must be an explicit semantic version, with or without a leading `v`; r
 
 ## Publishing
 
-The package ships only its launcher source, license, and README. Before publishing, authenticate to the npm scope that owns `@mgrilec-vibe` and run:
+The package ships only its launcher source, license, and README. CI tests pull requests and pushes to `main`; publishing is performed by [`.github/workflows/publish.yml`](.github/workflows/publish.yml) when a GitHub release is published.
+
+Publish a release by updating `package.json` to the intended version, committing it, and publishing a GitHub release tagged `v<package-version>`. The workflow refuses a tag that does not match `package.json`.
+
+For the first release, create a granular npm automation token with publish access to the `@mgrilec-vibe` scope and save it as the repository secret `NPM_TOKEN`. The workflow uses it to claim the currently unpublished package and produces npm provenance.
+
+After that release, configure npm trusted publishing, then delete `NPM_TOKEN`:
 
 ```sh
-npm publish
+npx --yes npm@^11.15.0 trust github @mgrilec-vibe/microsoft-apm \
+  --repository mgrilec-vibe/microsoft-apm-npm \
+  --file publish.yml \
+  --allow-publish
 ```
 
-`prepack` runs the test suite automatically. Inspect the final artifact with `npm pack --dry-run`.
+Subsequent releases authenticate with GitHub Actions OIDC (`id-token: write`) and do not need an npm token. `prepack` runs the test suite automatically; CI also runs `npm pack --dry-run` to inspect the publishable artifact.
