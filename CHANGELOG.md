@@ -4,6 +4,14 @@ All notable changes to `@mgrilec/apm` are documented in this file. The format fo
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-27
+
+### Added
+
+- npm package metadata linking users to the project homepage and issue tracker.
+
+## [0.1.0] - 2026-07-27
+
 ### Added
 
 - Initial implementation of the verified Microsoft APM launcher.
