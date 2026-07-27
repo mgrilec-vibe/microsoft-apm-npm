@@ -1,0 +1,66 @@
+name: Update Microsoft APM release
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-microsoft-apm-release
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: automation/apm-upstream-release
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+      - name: Continue an existing update branch
+        run: |
+          git fetch origin "$BRANCH" || true
+          if git show-ref --verify --quiet "refs/remotes/origin/$BRANCH"; then
+            git switch --create "$BRANCH" --track "origin/$BRANCH"
+          else
+            git switch --create "$BRANCH"
+          fi
+      - id: release
+        run: node scripts/update-apm-release.js
+      - if: steps.release.outputs.updated == 'true'
+        run: npm version patch --no-git-tag-version
+      - if: steps.release.outputs.updated == 'true'
+        run: npm ci && npm test
+      - if: steps.release.outputs.updated == 'true'
+        name: Commit updated release pin
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add README.md lib/release-manifest.json package.json package-lock.json
+          git commit -m "chore: update Microsoft APM to $VERSION"
+          git push --set-upstream origin "$BRANCH"
+      - if: steps.release.outputs.updated == 'true'
+        name: Open or update pull request
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          pr_number="$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')"
+          title="chore: update Microsoft APM to $VERSION"
+          body="Updates the pinned Microsoft APM release and its GitHub Release asset SHA-256 digests."
+          if [ -n "$pr_number" ]; then
+            gh pr edit "$pr_number" --title "$title" --body "$body"
+          else
+            gh pr create --base main --head "$BRANCH" --title "$title" --body "$body"
+          fi

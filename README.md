@@ -491,6 +491,8 @@ For the long-form source-level walk-through (sequence diagrams, lock semantics, 
 ### 9.1 What gets published
 
 The published tarball contains only the launcher source, this README, and the MIT license. Releases are published by [the release workflow](.github/workflows/publish.yml) when a GitHub release tag matches `package.json`.
+The [upstream release workflow](.github/workflows/update-apm-release.yml) polls Microsoft APM daily and can also run manually. It opens or updates one pull request only after a newer published stable semantic-version release has all supported archives, checksum sidecars, and GitHub API SHA-256 digests. That pull request updates the pinned release, its embedded digests, the documented default, and the wrapper patch version; review and merge it before creating the npm release.
+
 
 ### 9.2 Trusted publishing
 
