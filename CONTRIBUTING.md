@@ -43,4 +43,4 @@ Contributions are accepted under this repository's [MIT License](LICENSE). By su
 
 ## Community standards
 
-All participants must follow the [Code of Conduct](CODE_OF_CONDUCT.md). For usage questions and support boundaries, see [SUPPORT.md](SUPPORT.md).
+All participants must follow the [Code of Conduct](CODE_OF_CONDUCT.md). For usage questions and support boundaries, see [SUPPORT.md](SUPPORT.md). For per-version history, see [CHANGELOG.md](CHANGELOG.md). For long-form source-level documentation (architecture, threat model, every exported function), see [docs/](docs/).
