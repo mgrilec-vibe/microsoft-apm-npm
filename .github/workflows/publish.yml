@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish packages
 
 on:
   release:
@@ -8,6 +8,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  packages: write
 
 jobs:
   publish:
@@ -34,5 +35,43 @@ jobs:
             echo "Release tag $RELEASE_TAG does not match package version $expected" >&2
             exit 1
           }
-      - name: Publish package
-        run: npm publish
+      - name: Publish package to npm
+        run: |
+          name="$(node --print "require('./package.json').name")"
+          version="$(node --print "require('./package.json').version")"
+          set +e
+          output="$(npm view "${name}@${version}" version --registry=https://registry.npmjs.org 2>&1)"
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            echo "${name}@${version} is already published to npm; skipping."
+          else
+            case "$output" in
+              *E404*|*"404 Not Found"*) npm publish --registry=https://registry.npmjs.org ;;
+              *) printf '%s\n' "$output" >&2; exit "$status" ;;
+            esac
+          fi
+      - name: Configure GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          registry-url: https://npm.pkg.github.com
+          scope: '@mgrilec'
+      - name: Publish package to GitHub Packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          name="$(node --print "require('./package.json').name")"
+          version="$(node --print "require('./package.json').version")"
+          set +e
+          output="$(npm view "${name}@${version}" version --registry=https://npm.pkg.github.com 2>&1)"
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then
+            echo "${name}@${version} is already published to GitHub Packages; skipping."
+          else
+            case "$output" in
+              *E404*|*"404 Not Found"*) npm publish --registry=https://npm.pkg.github.com ;;
+              *) printf '%s\n' "$output" >&2; exit "$status" ;;
+            esac
+          fi

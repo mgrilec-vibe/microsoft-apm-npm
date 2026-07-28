@@ -490,11 +490,21 @@ For the long-form source-level walk-through (sequence diagrams, lock semantics, 
 
 ### 9.1 What gets published
 
-The published tarball contains only the launcher source, this README, and the MIT license. Releases are published by [the release workflow](.github/workflows/publish.yml) when a GitHub release tag matches `package.json`.
+The published tarball contains only the launcher source, this README, and the MIT license. Releases are published by [the release workflow](.github/workflows/publish.yml) when a GitHub release tag matches `package.json`. The workflow publishes each release version to both npm and GitHub Packages; before publishing to either registry, it skips that registry when the version is already present so a retried release can finish a partial dual-registry publication.
 The [upstream release workflow](.github/workflows/update-apm-release.yml) polls Microsoft APM daily and can also run manually. It opens or updates one pull request only after a newer published stable semantic-version release has all supported archives, checksum sidecars, and GitHub API SHA-256 digests. That pull request updates the pinned release, its embedded digests, the documented default, and the wrapper patch version; review and merge it before creating the npm release.
 
+### 9.2 Installing from GitHub Packages
 
-### 9.2 Trusted publishing
+npmjs is the default distribution registry. GitHub Packages requires a personal access token (classic), including `read:packages`, even for public packages. Authenticate the `@mgrilec` scope, then install the GitHub Packages copy:
+
+```sh
+npm login --scope=@mgrilec --auth-type=legacy --registry=https://npm.pkg.github.com
+npm install --save-dev @mgrilec/apm
+```
+
+The release workflow publishes there using its repository-scoped `GITHUB_TOKEN` with `packages: write`; it does not use the npm trusted-publishing identity. For noninteractive client authentication, add `//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}` and `@mgrilec:registry=https://npm.pkg.github.com` to the consuming project's `.npmrc`, then supply `GITHUB_PACKAGES_TOKEN` from the environment with a classic token.
+
+### 9.3 Trusted publishing
 
 The first release uses an npm automation token with publish access to the `@mgrilec` scope. Later releases use npm trusted publishing through GitHub Actions OIDC; `NPM_TOKEN` can then be removed.
 
@@ -505,7 +515,7 @@ npx --yes npm@^11.15.0 trust github @mgrilec/apm \
   --allow-publish
 ```
 
-### 9.3 CI
+### 9.4 CI
 
 CI on every push and pull request to `main` runs the test suite on Node.js 20 and 22 and validates the publishable package via `npm pack --dry-run`. See [.github/workflows/ci.yml](.github/workflows/ci.yml).
 
