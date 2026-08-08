@@ -1,6 +1,6 @@
 {
   "name": "@mgrilec/apm",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "npm launcher for the Microsoft APM CLI",
   "license": "MIT",
   "author": "mgrilec",
