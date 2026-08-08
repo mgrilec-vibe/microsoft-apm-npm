@@ -33,7 +33,7 @@ The launcher is published as a CommonJS package with no native binding; nothing 
 
 Microsoft APM ships native binaries. This package makes the CLI available through the normal npm workflow without hiding the provenance of the binary that actually runs.
 
-- **Pinned by default** — installs Microsoft APM **0.26.0**, so an upstream release cannot silently change an existing npm installation.
+- **Pinned by default** — installs Microsoft APM **0.28.0**, so an upstream release cannot silently change an existing npm installation.
 - **Verified before execution** — downloads the archive and its upstream SHA-256 sidecar over HTTPS; supported releases are additionally checked against digests embedded in this package.
 - **Cached per platform and version** — only the first run for a given target needs a download.
 - **Transparent at the command line** — APM arguments, output, exit code, and signals pass through unchanged.
@@ -74,7 +74,7 @@ npm exec -- apm --version
 npm exec -- apm --help
 ```
 
-`apm --version` prints the upstream binary's self-reported version; it should equal the package's pinned `0.26.0` (or whatever you set `MICROSOFT_APM_VERSION` to). If it prints a different version unexpectedly, see [§6 Troubleshooting](#6-troubleshooting).
+`apm --version` prints the upstream binary's self-reported version; it should equal the package's pinned `0.28.0` (or whatever you set `MICROSOFT_APM_VERSION` to). If it prints a different version unexpectedly, see [§6 Troubleshooting](#6-troubleshooting).
 
 ### 1.5 Uninstall
 
@@ -146,7 +146,7 @@ The defaults are secure and require no configuration. Set environment variables 
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `MICROSOFT_APM_VERSION` | `0.26.0` | An explicit upstream semantic version, with an optional `v` prefix. |
+| `MICROSOFT_APM_VERSION` | `0.28.0` | An explicit upstream semantic version, with an optional `v` prefix. |
 | `MICROSOFT_APM_CACHE_DIR` | OS-specific user cache dir | Directory used for verified APM installations. |
 | `MICROSOFT_APM_DOWNLOAD_BASE_URL` | GitHub releases | HTTPS mirror base URL; it must expose `v<version>/<asset>` and `<asset>.sha256`. |
 | `MICROSOFT_APM_DOWNLOAD_TIMEOUT_MS` | `120000` | Positive per-download timeout in milliseconds. |
@@ -171,18 +171,18 @@ The cache is created lazily. Each `(version, platform, arch)` triple lives under
 └── .microsoft-apm-npm-layout-v2   ← installation marker containing the upstream tag
 ```
 
-The marker is a plain text file whose entire content is the upstream version tag (for example, `v0.26.0`). A cache entry is "usable" only when both the executable exists and is launchable, and the marker matches the requested release's tag.
+The marker is a plain text file whose entire content is the upstream version tag (for example, `v0.28.0`). A cache entry is "usable" only when both the executable exists and is launchable, and the marker matches the requested release's tag.
 
 ### 3.3 Selecting a Microsoft APM release
 
 `MICROSOFT_APM_VERSION` selects the upstream release to install. The value must be a valid semver with an optional `v` prefix:
 
 ```sh
-MICROSOFT_APM_VERSION=v0.26.0 npm exec -- apm --version
-MICROSOFT_APM_VERSION=0.26.0   npm exec -- apm --version
+MICROSOFT_APM_VERSION=v0.28.0 npm exec -- apm --version
+MICROSOFT_APM_VERSION=0.28.0   npm exec -- apm --version
 ```
 
-Both forms resolve to the same release. The launcher rejects anything that is not a clean semver (including npm-style version ranges like `^0.26.0` or floating tags like `latest`) so that the binary you run is the one you asked for.
+Both forms resolve to the same release. The launcher rejects anything that is not a clean semver (including npm-style version ranges like `^0.28.0` or floating tags like `latest`) so that the binary you run is the one you asked for.
 
 The default release and supported historical release/platform combinations have expected archive SHA-256 values **embedded** in this package. Versions or platforms without an embedded digest still verify archive bytes against the upstream sidecar only; select them only when you explicitly trust that upstream release. See [§5.3 Release pin vs. embedded digest](#53-release-pin-vs-embedded-digest).
 
@@ -293,7 +293,7 @@ If you call the launcher from a `process.platform`/`process.arch` combination th
 
 There are two classes of release verification:
 
-- **Default version (`0.26.0`).** The package ships `RELEASE_HASHES` in `lib/release.js`. For each supported asset, the launcher checks **both** the upstream sidecar digest **and** the embedded one. Mismatch is fatal. This protects against a compromised GitHub Releases account distributing a tampered tarball: even if the upstream sidecar itself has been re-signed, the embedded digest still has to match.
+- **Default version (`0.28.0`).** The package ships `RELEASE_HASHES` in `lib/release.js`. For each supported asset, the launcher checks **both** the upstream sidecar digest **and** the embedded one. Mismatch is fatal. This protects against a compromised GitHub Releases account distributing a tampered tarball: even if the upstream sidecar itself has been re-signed, the embedded digest still has to match.
 - **Other versions.** The launcher verifies the archive's SHA-256 against the upstream sidecar only. Opting in to a non-default version means trusting the upstream maintainer to publish a correct sidecar.
 
 There is no "trust the most recent tag" mode. Floating tags (`latest`, `next`) are rejected by `normalizeVersion`.
@@ -333,10 +333,10 @@ The launcher's error messages are designed to point at one specific failure mode
 
 ### 6.1 Upstream checksum mismatch (default version)
 
-For the default version (`0.26.0`) the launcher expects the upstream sidecar to equal the digest embedded in this package. This check exists so that a compromised upstream sidecar alone cannot change which bytes you run — the package author also has to agree. A mismatch is a high-signal integrity event; do not work around it. The correct remedies:
+For the default version (`0.28.0`) the launcher expects the upstream sidecar to equal the digest embedded in this package. This check exists so that a compromised upstream sidecar alone cannot change which bytes you run — the package author also has to agree. A mismatch is a high-signal integrity event; do not work around it. The correct remedies:
 
 1. **Do not bypass this failure.** Switching to a non-default `MICROSOFT_APM_VERSION` to evade the check defeats the protection; it does not fix whatever caused the disagreement.
-2. **Verify the upstream release yourself.** Open [Microsoft APM releases](https://github.com/microsoft/apm/releases) in a browser and select the tag for the normalized version (`0.26.0` becomes `v0.26.0`). The release notes, published `.sha256` sidecar, and archived asset are authoritative; if the upstream sidecar has changed without a release note, that is itself a signal to stop and ask.
+2. **Verify the upstream release yourself.** Open [Microsoft APM releases](https://github.com/microsoft/apm/releases) in a browser and select the tag for the normalized version (`0.28.0` becomes `v0.28.0`). The release notes, published `.sha256` sidecar, and archived asset are authoritative; if the upstream sidecar has changed without a release note, that is itself a signal to stop and ask.
 3. **Stop the run.** Do not execute the unverified binary. The launcher's job is to refuse in this state.
 4. **Open an issue** with the verbatim error, your `MICROSOFT_APM_VERSION`, whether `MICROSOFT_APM_DOWNLOAD_BASE_URL` is set (and to which value), and a sanitized note of where the mismatch was observed. Do not paste the sidecar or any URL that includes credentials or a private mirror path; the launcher's error message already names the sidecar location.
 5. **Wait for a fixed release.** A correct fix is a new package version with an updated `RELEASE_HASHES` (or a documented retraction of the upstream release), reviewed and published through the normal release workflow. Pinning to that version, or to the previous one if the upstream release is retracted, is the supported path.
